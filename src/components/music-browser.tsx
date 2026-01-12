@@ -3,6 +3,7 @@ import { useState, useMemo } from "react";
 import { useVideos, Video } from "../contexts/video-context";
 import { useLanguage } from "../contexts/language-context";
 import { VideoForm } from "./video-form";
+import VideoPlayerModal from "./VideoPlayerModal";
 import { SearchX, Plus, Pencil, Trash2, Hash, X, Check } from "lucide-react";
 
 import { LanguageSwitch } from "./language-switch";
@@ -14,6 +15,7 @@ export function MusicBrowser() {
     const [activeTag, setActiveTag] = useState<string | null>(null);
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [editingVideo, setEditingVideo] = useState<Video | undefined>(undefined);
+    const [playingVideo, setPlayingVideo] = useState<Video | null>(null);
     const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
     const allTags = useMemo(() => {
@@ -155,11 +157,9 @@ export function MusicBrowser() {
                         <div key={video.id} className="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow relative">
                             <div className="aspect-video bg-gray-100 relative group-hover:scale-105 transition-transform duration-300">
                                 {video.url ? (
-                                    <a
-                                        href={video.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="block w-full h-full relative"
+                                    <div
+                                        onClick={() => setPlayingVideo(video)}
+                                        className="block w-full h-full relative cursor-pointer"
                                     >
                                         <img
                                             src={`https://img.youtube.com/vi/${video.url.split('v=')[1]?.split('&')[0] || video.url.split('youtu.be/')[1]?.split('?')[0]}/hqdefault.jpg`}
@@ -168,12 +168,12 @@ export function MusicBrowser() {
                                         />
                                         <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors flex items-center justify-center">
                                             <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-all duration-300">
-                                                <svg className="w-9 h-9 text-neutral-900 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
+                                                <svg className="w-9 h-9 text-neutral-900" fill="currentColor" viewBox="0 0 24 24">
                                                     <path d="M8 5v14l11-7z" />
                                                 </svg>
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-gray-400">
                                         {t('previewNotAvailable')}
@@ -238,6 +238,13 @@ export function MusicBrowser() {
                 onSubmit={handleFormSubmit}
                 initialData={editingVideo}
             />
+
+            {playingVideo && (
+                <VideoPlayerModal
+                    video={playingVideo}
+                    onClose={() => setPlayingVideo(null)}
+                />
+            )}
         </div >
     );
 }

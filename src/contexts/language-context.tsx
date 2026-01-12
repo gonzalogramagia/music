@@ -18,6 +18,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         if (location.pathname.startsWith('/en')) {
             setLanguage('en')
+        } else if (location.pathname === '/import' || location.pathname === '/export') {
+            setLanguage('en')
+        } else if (location.pathname === '/importar' || location.pathname === '/exportar') {
+            setLanguage('es')
         } else {
             setLanguage('es')
         }

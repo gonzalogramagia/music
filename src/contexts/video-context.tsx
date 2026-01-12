@@ -25,11 +25,25 @@ const STORAGE_KEY = 'gonzalogramagia_music_videos';
 const getEmbedUrl = (url: string): string | undefined => {
     try {
         let videoId = '';
-        if (url.includes('youtube.com/watch?v=')) {
-            videoId = url.split('v=')[1].split('&')[0];
+        if (url.includes('youtube.com/watch')) {
+            const urlObj = new URL(url);
+            videoId = urlObj.searchParams.get('v') || '';
         } else if (url.includes('youtu.be/')) {
-            videoId = url.split('youtu.be/')[1].split('?')[0];
+            // Handle https://youtu.be/ID?t=123
+            const parts = url.split('youtu.be/');
+            if (parts.length > 1) {
+                videoId = parts[1].split('?')[0];
+            }
         }
+
+        // Final sanity check for weird inputs like https://youtu.be/watch?v=ID which shouldn't happen but user had it
+        if (!videoId && url.includes('v=')) {
+            try {
+                const urlObj = new URL(url);
+                videoId = urlObj.searchParams.get('v') || '';
+            } catch (e) { }
+        }
+
 
         if (videoId) {
             return `https://www.youtube.com/embed/${videoId}`;
@@ -55,9 +69,9 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
             {
                 id: 'default-song-2',
                 name: 'Paulo Londra - 1% (feat. Eladio Carrión) [Official Video]',
-                url: 'https://youtu.be/watch?v=2yGZPCjtGJ8',
+                url: 'https://youtu.be/2yGZPCjtGJ8',
                 tags: ['Rap'],
-                embedUrl: getEmbedUrl('https://youtu.be/watch?v=2yGZPCjtGJ8')
+                embedUrl: getEmbedUrl('https://youtu.be/2yGZPCjtGJ8')
             }
         ];
 

@@ -12,10 +12,12 @@
     - Name (e.g., "Bohemian Rhapsody")
     - Tags (e.g., #Rock, #Live)
 - **🌍 Internationalization**: Fully localized interface with English (EN) and Spanish (ES) support.
-- **▶️ Quick Play**: Click on any card to open the video instantly in a new tab.
+- **▶️ In-App Playback**: Watch videos instantly in a sleek modal without leaving the app.
 - **⚡️ Rapid Add**: Auto-fetch video titles from YouTube URLs.
 - **🏷️ Tagging System**: Organize your library with custom tags.
-- **💾 Persistence**: Data is automatically saved to your local storage.
+- **💾 Data Management**: 
+    - **Export**: Backup your library or share specific tags via JSON.
+    - **Import**: Restore your collection easily.
 - **🎨 Clean UI**: Minimalist design with a focus on music.
 
 ---
@@ -26,6 +28,7 @@
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Icons**: [Lucide React](https://lucide.dev/)
+- **Routing**: [React Router](https://reactrouter.com/)
 
 ---
 
@@ -36,7 +39,7 @@
 - The URL automatically updates (e.g., `/en`) to reflect the current language.
 
 ### ➕ Adding Songs
-- Click the big "Agregar Canción" (or "Add Song") card.
+- Click the big "Add Song" card.
 - Paste a YouTube URL (the title is fetched automatically!).
 - Add tags to organize your music.
 
@@ -45,8 +48,12 @@
 - **Tags**: Click on a tag to filter your library instantly.
 
 ### 🎧 Listening
-- **Play**: Click the card thumbnail to open the video in a new tab.
+- **Play**: Click the card thumbnail to open the video in an embedded player.
 - **External Links**: Use the floating buttons for external tools or code.
+
+### 📦 Backup & Restore
+- **Export**: Go to `/export` (or `/exportar`) to download your library.
+- **Import**: Go to `/import` (or `/importar`) to upload a backup file.
 
 ---
 
