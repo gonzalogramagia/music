@@ -76,21 +76,6 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData }: VideoFormP
                 <form onSubmit={handleSubmit} className="p-4 space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                            {t('youtubeUrl')}
-                        </label>
-                        <input
-                            type="url"
-                            value={url}
-                            onChange={(e) => setUrl(e.target.value)}
-                            onBlur={handleUrlBlur}
-                            required
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                            placeholder="https://www.youtube.com/watch?v=..."
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
                             {t('name')}
                         </label>
                         <div className="flex gap-2">
@@ -116,6 +101,21 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData }: VideoFormP
                                 <Search className="w-5 h-5 text-gray-900" />
                             </button>
                         </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            {t('youtubeUrl')}
+                        </label>
+                        <input
+                            type="url"
+                            value={url}
+                            onChange={(e) => setUrl(e.target.value)}
+                            onBlur={handleUrlBlur}
+                            required
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            placeholder="https://www.youtube.com/watch?v=..."
+                        />
                     </div>
 
 

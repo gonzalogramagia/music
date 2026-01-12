@@ -12,7 +12,7 @@
     - Name (e.g., "Bohemian Rhapsody")
     - Tags (e.g., #Rock, #Live)
 - **🌍 Internationalization**: Fully localized interface with English (EN) and Spanish (ES) support.
-- **📺 Embedded Player**: Watch videos directly within the card interface.
+- **▶️ Quick Play**: Click on any card to open the video instantly in a new tab.
 - **⚡️ Rapid Add**: Auto-fetch video titles from YouTube URLs.
 - **🏷️ Tagging System**: Organize your library with custom tags.
 - **💾 Persistence**: Data is automatically saved to your local storage.
@@ -45,7 +45,7 @@
 - **Tags**: Click on a tag to filter your library instantly.
 
 ### 🎧 Listening
-- **Play**: The video player is embedded right in the card.
+- **Play**: Click the card thumbnail to open the video in a new tab.
 - **External Links**: Use the floating buttons for external tools or code.
 
 ---

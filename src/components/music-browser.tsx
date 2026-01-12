@@ -64,6 +64,12 @@ export function MusicBrowser() {
 
     const handleUnpinTag = () => setActiveTag(null);
 
+    const getTagName = (tag: string) => {
+        const key = 'tag_' + tag;
+        const translation = t(key);
+        return translation === key ? tag : translation;
+    };
+
     return (
         <div className="space-y-8">
             <div className="sticky top-0 z-10 bg-white py-4 border-b border-neutral-200 space-y-3">
@@ -107,7 +113,7 @@ export function MusicBrowser() {
                                 className="inline-flex items-center gap-1 px-2 py-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-600 rounded text-xs transition-colors cursor-pointer"
                             >
                                 <Hash className="w-3 h-3" />
-                                {t('tag_' + tag) || tag}
+                                {getTagName(tag)}
                             </button>
                         ))}
                     </div>
@@ -214,7 +220,7 @@ export function MusicBrowser() {
                                             onClick={() => setActiveTag(tag)}
                                             className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 cursor-pointer transition-colors"
                                         >
-                                            #{t('tag_' + tag) || tag}
+                                            #{getTagName(tag)}
                                         </span>
                                     ))}
                                 </div>
