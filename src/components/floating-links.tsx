@@ -12,8 +12,8 @@ export function FloatingLinks() {
     const emojisUrl = getUrl("https://emojis.gonzalogramagia.com")
     // const musicUrl = getUrl("https://music.gonzalogramagia.com") // Unused because button is disabled
 
-    // Apply localization to ClickUp as well per user request "todos los botones"
-    const clickUpUrlLocalized = isEnglish ? "https://clickup.gonzalogramagia.com/en" : "https://clickup.gonzalogramagia.com"
+    // Apply localization to Tasks as well per user request "todos los botones"
+    const tasksUrlLocalized = isEnglish ? "https://tasks.gonzalogramagia.com/en" : "https://tasks.gonzalogramagia.com"
 
     return (
         <div className="fixed bottom-8 left-8 flex gap-3 z-50">
@@ -47,12 +47,12 @@ export function FloatingLinks() {
                 <Music className="w-6 h-6 text-zinc-900 dark:text-white transition-colors" />
             </button>
 
-            {/* ClickUp Button */}
+            {/* Tasks Button */}
             <a
-                href={clickUpUrlLocalized}
+                href={tasksUrlLocalized}
                 className="p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 group cursor-pointer"
-                aria-label={t('ariaClickUp')}
-                title={t('ariaClickUp')}
+                aria-label={t('ariaTasks')}
+                title={t('ariaTasks')}
             >
                 <BowArrow className="w-6 h-6 text-gray-900 dark:text-white group-hover:text-yellow-500 transition-colors" />
             </a>
