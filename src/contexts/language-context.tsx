@@ -25,9 +25,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
     const translations: Record<Language, Record<string, string>> = {
         es: {
-            ariaHome: "Ir al inicio",
-            ariaEmojis: "Ir a emojis",
-            ariaMusic: "Ir a música",
+            ariaHome: "Ir a Home",
+            ariaEmojis: "Ir a Emojis",
+            ariaMusic: "Ir a Música",
+            ariaClickUp: "Ir a ClickUp",
+            tag_Electronic: "Electrónica",
             moreSongsIn: "Más canciones en",
             searchPlaceholder: "Buscar canciones...",
             addSong: "Agregar Canción",
@@ -46,9 +48,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
             previewNotAvailable: "Vista previa no disponible"
         },
         en: {
-            ariaHome: "Go to home",
-            ariaEmojis: "Go to emojis",
-            ariaMusic: "Go to music",
+            ariaHome: "Go to Home",
+            ariaEmojis: "Go to Emojis",
+            ariaMusic: "Go to Music",
+            ariaClickUp: "Go to ClickUp",
+            tag_Electronic: "Electronic",
             moreSongsIn: "More songs on",
             searchPlaceholder: "Search songs...",
             addSong: "Add Song",

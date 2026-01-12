@@ -51,8 +51,8 @@ export function FloatingLinks() {
             <a
                 href={clickUpUrlLocalized}
                 className="p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 group cursor-pointer"
-                aria-label="ClickUp Tools"
-                title="ClickUp Tools"
+                aria-label={t('ariaClickUp')}
+                title={t('ariaClickUp')}
             >
                 <BowArrow className="w-6 h-6 text-gray-900 dark:text-white group-hover:text-yellow-500 transition-colors" />
             </a>

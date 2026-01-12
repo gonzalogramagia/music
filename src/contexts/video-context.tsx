@@ -47,11 +47,43 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
         const storedVideos = localStorage.getItem(STORAGE_KEY);
         if (storedVideos) {
             try {
-                setVideos(JSON.parse(storedVideos));
+                const parsed: Video[] = JSON.parse(storedVideos);
+                if (parsed.length > 0) {
+                    // Start of fix: Update default song if it exists to ensure latest metadata
+                    const updatedWithDefault = parsed.map(v =>
+                        v.id === 'default-song'
+                            ? {
+                                ...v,
+                                name: 'Lost Frequencies – Royal Palace Brussels 2020',
+                                tags: ['Electronic'] // Ensure tag is also updated
+                            }
+                            : v
+                    );
+
+                    setVideos(updatedWithDefault);
+                    // Update storage with fixed data
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedWithDefault));
+                    return;
+                }
             } catch (e) {
                 console.error('Failed to parse videos from local storage', e);
             }
         }
+
+        // Load default video if storage is empty or invalid
+        const defaultVideo: Video = {
+            id: 'default-song',
+            name: 'Lost Frequencies – Royal Palace Brussels 2020',
+            url: 'https://youtu.be/q-ktd4nEi3w',
+            tags: ['Electronic'],
+            embedUrl: getEmbedUrl('https://youtu.be/q-ktd4nEi3w')
+        };
+        setVideos([defaultVideo]);
+        // Note: We don't save to localStorage here to allow 'reset' by clearing storage, 
+        // but typically you might want to save it. 
+        // For now, let's save it so it persists.
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([defaultVideo]));
+
     }, []);
 
     const saveVideos = (newVideos: Video[]) => {

@@ -107,7 +107,7 @@ export function MusicBrowser() {
                                 className="inline-flex items-center gap-1 px-2 py-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-600 rounded text-xs transition-colors cursor-pointer"
                             >
                                 <Hash className="w-3 h-3" />
-                                {tag}
+                                {t('tag_' + tag) || tag}
                             </button>
                         ))}
                     </div>
@@ -147,15 +147,27 @@ export function MusicBrowser() {
                 ) : (
                     filteredVideos.map((video) => (
                         <div key={video.id} className="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow relative">
-                            <div className="aspect-video bg-gray-100 relative">
-                                {video.embedUrl ? (
-                                    <iframe
-                                        src={video.embedUrl}
-                                        title={video.name}
-                                        className="w-full h-full"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                    />
+                            <div className="aspect-video bg-gray-100 relative group-hover:scale-105 transition-transform duration-300">
+                                {video.url ? (
+                                    <a
+                                        href={video.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="block w-full h-full relative"
+                                    >
+                                        <img
+                                            src={`https://img.youtube.com/vi/${video.url.split('v=')[1]?.split('&')[0] || video.url.split('youtu.be/')[1]?.split('?')[0]}/hqdefault.jpg`}
+                                            alt={video.name}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors flex items-center justify-center">
+                                            <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-all duration-300">
+                                                <svg className="w-9 h-9 text-neutral-900 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M8 5v14l11-7z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </a>
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-gray-400">
                                         {t('previewNotAvailable')}
@@ -202,7 +214,7 @@ export function MusicBrowser() {
                                             onClick={() => setActiveTag(tag)}
                                             className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 cursor-pointer transition-colors"
                                         >
-                                            #{tag}
+                                            #{t('tag_' + tag) || tag}
                                         </span>
                                     ))}
                                 </div>
