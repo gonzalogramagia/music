@@ -11,6 +11,7 @@
 - **🔎 Smart Search**: Find songs by:
     - Name (e.g., "Bohemian Rhapsody")
     - Tags (e.g., #Rock, #Live)
+- **🌍 Internationalization**: Fully localized interface with English (EN) and Spanish (ES) support.
 - **📺 Embedded Player**: Watch videos directly within the card interface.
 - **⚡️ Rapid Add**: Auto-fetch video titles from YouTube URLs.
 - **🏷️ Tagging System**: Organize your library with custom tags.
@@ -30,8 +31,12 @@
 
 ## 🕹 Usage
 
+### 🌐 Switching Language
+- Use the **ES / EN** switch next to the search bar to toggle between Spanish and English.
+- The URL automatically updates (e.g., `/en`) to reflect the current language.
+
 ### ➕ Adding Songs
-- Click the big "Agregar Canción" card.
+- Click the big "Agregar Canción" (or "Add Song") card.
 - Paste a YouTube URL (the title is fetched automatically!).
 - Add tags to organize your music.
 

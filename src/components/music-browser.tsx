@@ -1,11 +1,15 @@
 
 import { useState, useMemo } from "react";
 import { useVideos, Video } from "../contexts/video-context";
+import { useLanguage } from "../contexts/language-context";
 import { VideoForm } from "./video-form";
 import { SearchX, Plus, Pencil, Trash2, Hash, X, Check } from "lucide-react";
 
+import { LanguageSwitch } from "./language-switch";
+
 export function MusicBrowser() {
     const { videos, addVideo, updateVideo, deleteVideo } = useVideos();
+    const { t } = useLanguage();
     const [search, setSearch] = useState("");
     const [activeTag, setActiveTag] = useState<string | null>(null);
     const [isFormOpen, setIsFormOpen] = useState(false);
@@ -58,6 +62,8 @@ export function MusicBrowser() {
         }
     };
 
+    const handleUnpinTag = () => setActiveTag(null);
+
     return (
         <div className="space-y-8">
             <div className="sticky top-0 z-10 bg-white py-4 border-b border-neutral-200 space-y-3">
@@ -65,12 +71,18 @@ export function MusicBrowser() {
                     <div className="relative flex-1">
                         <input
                             type="text"
-                            placeholder="Buscar canciones..."
+                            placeholder={t('searchPlaceholder')}
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
+                            onFocus={() => {
+                                if (activeTag) {
+                                    handleUnpinTag();
+                                }
+                            }}
                             className="w-full px-4 py-2 rounded-lg border border-neutral-300 bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-neutral-900"
                         />
                     </div>
+                    <LanguageSwitch />
                 </div>
 
                 {activeTag && (
@@ -116,7 +128,7 @@ export function MusicBrowser() {
                     <div className="h-12 w-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-sm">
                         <Plus className="w-6 h-6" />
                     </div>
-                    <span className="font-medium text-gray-600 group-hover:text-blue-600 text-sm">Agregar Canción</span>
+                    <span className="font-medium text-gray-600 group-hover:text-blue-600 text-sm">{t('addSong')}</span>
                 </button>
 
 
@@ -128,7 +140,7 @@ export function MusicBrowser() {
                         </div>
                         <div className="text-center text-neutral-500">
                             <p className="font-bold text-sm">
-                                No se encontraron canciones
+                                {t('noSongsFound')}
                             </p>
                         </div>
                     </div>
@@ -146,7 +158,7 @@ export function MusicBrowser() {
                                     />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-gray-400">
-                                        No preview available
+                                        {t('previewNotAvailable')}
                                     </div>
                                 )}
 
@@ -157,7 +169,7 @@ export function MusicBrowser() {
                                 <button
                                     onClick={() => handleEdit(video)}
                                     className="p-2 text-gray-500 hover:text-blue-600 transition-colors cursor-pointer"
-                                    title="Editar"
+                                    title={t('edit')}
                                 >
                                     <Pencil className="w-4 h-4" />
                                 </button>
@@ -167,7 +179,7 @@ export function MusicBrowser() {
                                         ? "text-red-500 hover:text-red-600 bg-red-50 rounded-lg"
                                         : "text-gray-500 hover:text-red-500"
                                         }`}
-                                    title={confirmDeleteId === video.id ? "Confirmar eliminar" : "Eliminar"}
+                                    title={confirmDeleteId === video.id ? t('confirmDelete') : t('delete')}
                                 >
                                     {confirmDeleteId === video.id ? (
                                         <Check className="w-4 h-4" />

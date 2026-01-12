@@ -1,6 +1,6 @@
 import Home from './pages/Home'
 import Footer from './components/footer'
-import { ClickupLink } from './components/clickup-link'
+import { FloatingLinks } from './components/floating-links'
 import { Github } from 'lucide-react'
 
 function AppContent() {
@@ -9,7 +9,7 @@ function AppContent() {
             <main className="flex-auto min-w-0 mt-6 flex flex-col px-8 lg:px-0">
                 <Home />
                 <Footer />
-                <ClickupLink />
+                <FloatingLinks />
             </main>
 
             <a
@@ -26,12 +26,15 @@ function AppContent() {
 }
 
 import { VideoProvider } from './contexts/video-context'
+import { LanguageProvider } from './contexts/language-context'
 
 function App() {
     return (
-        <VideoProvider>
-            <AppContent />
-        </VideoProvider>
+        <LanguageProvider>
+            <VideoProvider>
+                <AppContent />
+            </VideoProvider>
+        </LanguageProvider>
     )
 }
 

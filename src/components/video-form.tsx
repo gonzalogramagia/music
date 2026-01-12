@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Video } from '../contexts/video-context';
+import { useLanguage } from '../contexts/language-context';
 import { X, Search } from 'lucide-react';
 
 interface VideoFormProps {
@@ -11,6 +12,7 @@ interface VideoFormProps {
 }
 
 export function VideoForm({ isOpen, onClose, onSubmit, initialData }: VideoFormProps) {
+    const { t } = useLanguage();
     const [name, setName] = useState('');
     const [url, setUrl] = useState('');
 
@@ -61,7 +63,7 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData }: VideoFormP
             <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden relative animate-in fade-in zoom-in duration-200">
                 <div className="flex items-center justify-between p-4 border-b border-gray-100">
                     <h2 className="text-xl font-bold text-gray-900">
-                        {initialData ? 'Editar Canción' : 'Agregar Canción'}
+                        {initialData ? t('editSong') : t('addSong')}
                     </h2>
                     <button
                         onClick={onClose}
@@ -74,7 +76,7 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData }: VideoFormP
                 <form onSubmit={handleSubmit} className="p-4 space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                            URL de YouTube
+                            {t('youtubeUrl')}
                         </label>
                         <input
                             type="url"
@@ -89,7 +91,7 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData }: VideoFormP
 
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Nombre
+                            {t('name')}
                         </label>
                         <div className="flex gap-2">
                             <input
@@ -98,7 +100,7 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData }: VideoFormP
                                 onChange={(e) => setName(e.target.value)}
                                 required
                                 className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                                placeholder="Ej: Mi Canción Favorita"
+                                placeholder={t('namePlaceholder')}
                             />
                             <button
                                 type="button"
@@ -109,7 +111,7 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData }: VideoFormP
                                 }}
                                 disabled={!name}
                                 className="px-3 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
-                                title="Buscar en YouTube"
+                                title={t('searchInYoutube')}
                             >
                                 <Search className="w-5 h-5 text-gray-900" />
                             </button>
@@ -120,14 +122,14 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData }: VideoFormP
 
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Tags (separados por coma)
+                            {t('tagsLabel')}
                         </label>
                         <input
                             type="text"
                             value={tags}
                             onChange={(e) => setTags(e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                            placeholder="Rap, Electrónica, Motivación, Energía"
+                            placeholder={t('tagsPlaceholder')}
                         />
                     </div>
 
@@ -136,7 +138,7 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData }: VideoFormP
                             type="submit"
                             className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-lg hover:shadow-xl hover:-translate-y-0.5 cursor-pointer"
                         >
-                            {initialData ? 'Guardar Cambios' : 'Agregar Canción'}
+                            {t('saveChanges')}
                         </button>
                     </div>
                 </form>
