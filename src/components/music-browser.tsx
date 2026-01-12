@@ -1,0 +1,213 @@
+
+import { useState, useMemo } from "react";
+import { useVideos, Video } from "../contexts/video-context";
+import { VideoForm } from "./video-form";
+import { SearchX, Plus, Pencil, Trash2, Hash, X, Check } from "lucide-react";
+
+export function MusicBrowser() {
+    const { videos, addVideo, updateVideo, deleteVideo } = useVideos();
+    const [search, setSearch] = useState("");
+    const [activeTag, setActiveTag] = useState<string | null>(null);
+    const [isFormOpen, setIsFormOpen] = useState(false);
+    const [editingVideo, setEditingVideo] = useState<Video | undefined>(undefined);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+
+    const allTags = useMemo(() => {
+        const tags = new Set<string>();
+        videos.forEach(video => {
+            video.tags.forEach(tag => tags.add(tag));
+        });
+        return Array.from(tags).sort();
+    }, [videos]);
+
+    const filteredVideos = useMemo(() => {
+        if (activeTag) {
+            return videos.filter(video => video.tags.includes(activeTag));
+        }
+
+        if (!search.trim()) return videos;
+
+        const lowerSearch = search.toLowerCase();
+        return videos.filter(video =>
+            video.name.toLowerCase().includes(lowerSearch) ||
+            video.tags.some(tag => tag.toLowerCase().includes(lowerSearch))
+        );
+    }, [videos, search, activeTag]);
+
+    const handleEdit = (video: Video) => {
+        setEditingVideo(video);
+        setIsFormOpen(true);
+    };
+
+    const handleDelete = (id: string) => {
+        if (confirmDeleteId === id) {
+            deleteVideo(id);
+            setConfirmDeleteId(null);
+        } else {
+            setConfirmDeleteId(id);
+            // Auto-reset confirmation after 3 seconds
+            setTimeout(() => setConfirmDeleteId(null), 3000);
+        }
+    };
+
+    const handleFormSubmit = (videoData: Omit<Video, 'id' | 'embedUrl'>) => {
+        if (editingVideo) {
+            updateVideo(editingVideo.id, videoData);
+        } else {
+            addVideo(videoData);
+        }
+    };
+
+    return (
+        <div className="space-y-8">
+            <div className="sticky top-0 z-10 bg-white py-4 border-b border-neutral-200 space-y-3">
+                <div className="flex items-center gap-4">
+                    <div className="relative flex-1">
+                        <input
+                            type="text"
+                            placeholder="Buscar canciones..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className="w-full px-4 py-2 rounded-lg border border-neutral-300 bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-neutral-900"
+                        />
+                    </div>
+                </div>
+
+                {activeTag && (
+                    <div className="flex items-center cursor-pointer" onClick={() => setActiveTag(null)}>
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-200 transition-colors">
+                            <Hash className="w-3.5 h-3.5" />
+                            {activeTag}
+                            <button className="ml-1 p-0.5 rounded-full transition-colors cursor-pointer">
+                                <X className="w-3.5 h-3.5" />
+                            </button>
+                        </span>
+                    </div>
+                )}
+
+                {/* Tag Cloud */}
+                {allTags.length > 0 && !activeTag && (
+                    <div className="flex flex-wrap gap-2">
+                        {allTags.map(tag => (
+                            <button
+                                key={tag}
+                                onClick={() => setActiveTag(tag)}
+                                className="inline-flex items-center gap-1 px-2 py-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-600 rounded text-xs transition-colors cursor-pointer"
+                            >
+                                <Hash className="w-3 h-3" />
+                                {tag}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {/* Add Video Button - Always First */}
+                <button
+                    onClick={() => {
+                        setEditingVideo(undefined);
+                        setIsFormOpen(true);
+                    }}
+                    className="flex flex-col items-center justify-center min-h-[220px] border-2 border-dashed border-gray-300 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all group cursor-pointer"
+                >
+                    <div className="h-12 w-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-sm">
+                        <Plus className="w-6 h-6" />
+                    </div>
+                    <span className="font-medium text-gray-600 group-hover:text-blue-600 text-sm">Agregar Canción</span>
+                </button>
+
+
+
+                {filteredVideos.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center min-h-[220px] p-6 text-neutral-500 space-y-2 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50">
+                        <div className="bg-neutral-100 p-3 rounded-full">
+                            <SearchX className="w-6 h-6 text-neutral-400" />
+                        </div>
+                        <div className="text-center text-neutral-500">
+                            <p className="font-bold text-sm">
+                                No se encontraron canciones
+                            </p>
+                        </div>
+                    </div>
+                ) : (
+                    filteredVideos.map((video) => (
+                        <div key={video.id} className="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow relative">
+                            <div className="aspect-video bg-gray-100 relative">
+                                {video.embedUrl ? (
+                                    <iframe
+                                        src={video.embedUrl}
+                                        title={video.name}
+                                        className="w-full h-full"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                        No preview available
+                                    </div>
+                                )}
+
+                            </div>
+
+                            {/* Action Buttons - Bottom Right of Card */}
+                            <div className="absolute bottom-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 p-1.5 rounded-lg border border-gray-100 shadow-sm backdrop-blur-sm z-10">
+                                <button
+                                    onClick={() => handleEdit(video)}
+                                    className="p-2 text-gray-500 hover:text-blue-600 transition-colors cursor-pointer"
+                                    title="Editar"
+                                >
+                                    <Pencil className="w-4 h-4" />
+                                </button>
+                                <button
+                                    onClick={() => handleDelete(video.id)}
+                                    className={`p-2 transition-colors cursor-pointer ${confirmDeleteId === video.id
+                                        ? "text-red-500 hover:text-red-600 bg-red-50 rounded-lg"
+                                        : "text-gray-500 hover:text-red-500"
+                                        }`}
+                                    title={confirmDeleteId === video.id ? "Confirmar eliminar" : "Eliminar"}
+                                >
+                                    {confirmDeleteId === video.id ? (
+                                        <Check className="w-4 h-4" />
+                                    ) : (
+                                        <Trash2 className="w-4 h-4" />
+                                    )}
+                                </button>
+                            </div>
+
+                            <div className="p-2">
+                                <h3 className="font-semibold text-gray-900 truncate text-sm leading-tight" title={video.name}>
+                                    {video.name}
+                                </h3>
+
+
+                                <div className="flex flex-wrap gap-1 mt-1">
+                                    {video.tags.map(tag => (
+                                        <span
+                                            key={tag}
+                                            onClick={() => setActiveTag(tag)}
+                                            className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 cursor-pointer transition-colors"
+                                        >
+                                            #{tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                )}
+            </div>
+
+
+
+            <VideoForm
+                isOpen={isFormOpen}
+                onClose={() => setIsFormOpen(false)}
+                onSubmit={handleFormSubmit}
+                initialData={editingVideo}
+            />
+        </div >
+    );
+}
