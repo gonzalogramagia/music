@@ -11,6 +11,7 @@
 - **🔎 Smart Search**: Find songs by:
     - Name (e.g., "Bohemian Rhapsody")
     - Tags (e.g., #Rock, #Live)
+- **🔃 Drag & Drop**: Organize your playlist your way by dragging and dropping cards.
 - **🌍 Internationalization**: Fully localized interface with English (EN) and Spanish (ES) support.
 - **▶️ In-App Playback**: Watch videos instantly in a sleek modal without leaving the app.
 - **⚡️ Rapid Add**: Auto-fetch video titles from YouTube URLs.

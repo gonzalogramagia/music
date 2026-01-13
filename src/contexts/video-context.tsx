@@ -15,6 +15,7 @@ interface VideoContextType {
     addVideo: (video: Omit<Video, 'id' | 'embedUrl'>) => void;
     updateVideo: (id: string, video: Omit<Video, 'id' | 'embedUrl'>) => void;
     deleteVideo: (id: string) => void;
+    reorderVideos: (newOrder: Video[]) => void;
     getEmbedUrl: (url: string) => string | undefined;
 }
 
@@ -137,8 +138,12 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
         saveVideos(filteredVideos);
     };
 
+    const reorderVideos = (newOrder: Video[]) => {
+        saveVideos(newOrder);
+    };
+
     return (
-        <VideoContext.Provider value={{ videos, addVideo, updateVideo, deleteVideo, getEmbedUrl }}>
+        <VideoContext.Provider value={{ videos, addVideo, updateVideo, deleteVideo, reorderVideos, getEmbedUrl }}>
             {children}
         </VideoContext.Provider>
     );

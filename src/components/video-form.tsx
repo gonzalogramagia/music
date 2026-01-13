@@ -9,9 +9,10 @@ interface VideoFormProps {
     onClose: () => void;
     onSubmit: (video: Omit<Video, 'id' | 'embedUrl'>) => void;
     initialData?: Video;
+    initialName?: string;
 }
 
-export function VideoForm({ isOpen, onClose, onSubmit, initialData }: VideoFormProps) {
+export function VideoForm({ isOpen, onClose, onSubmit, initialData, initialName = '' }: VideoFormProps) {
     const { t } = useLanguage();
     const [name, setName] = useState('');
     const [url, setUrl] = useState('');
@@ -25,12 +26,12 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData }: VideoFormP
 
             setTags(initialData.tags.join(', '));
         } else {
-            setName('');
+            setName(initialName);
             setUrl('');
 
             setTags('');
         }
-    }, [initialData, isOpen]);
+    }, [initialData, isOpen, initialName]);
 
     if (!isOpen) return null;
 

@@ -90,29 +90,6 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
                         </label>
                     </div> */}
 
-                    {/* Playlist URL Config */}
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
-                            <LinkIcon size={16} />
-                            {lang === 'en' ? '"More songs on..." URL' : 'URL de "Más canciones en..."'}
-                        </label>
-                        <div className="flex gap-2">
-                            <input
-                                type="text"
-                                value={playlistUrl}
-                                onChange={(e) => setPlaylistUrl(e.target.value)}
-                                className="flex-1 p-2 text-sm border border-zinc-200 dark:border-zinc-700 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="https://youtube.com/playlist..."
-                            />
-                            <button
-                                onClick={handleSavePlaylistUrl}
-                                className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
-                            >
-                                <Save size={18} />
-                            </button>
-                        </div>
-                    </div>
-
                     {/* Tag Visibility */}
                     <div className="space-y-2">
                         <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
@@ -135,6 +112,29 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
                                     )}
                                 </div>
                             ))}
+                        </div>
+                    </div>
+
+                    {/* Playlist URL Config */}
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
+                            <LinkIcon size={16} />
+                            {lang === 'en' ? '"More songs on..." URL' : 'URL de "Más canciones en..."'}
+                        </label>
+                        <div className="flex gap-2">
+                            <input
+                                type="text"
+                                value={playlistUrl}
+                                onChange={(e) => setPlaylistUrl(e.target.value)}
+                                className="flex-1 p-2 text-sm border border-zinc-200 dark:border-zinc-700 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="https://youtube.com/playlist..."
+                            />
+                            <button
+                                onClick={handleSavePlaylistUrl}
+                                className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
+                            >
+                                <Save size={18} />
+                            </button>
                         </div>
                     </div>
 
