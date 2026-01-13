@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Upload, X, FileJson, AlertCircle } from 'lucide-react';
+import { FileDown, X, FileJson, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/language-context';
 import { useVideos, Video } from '../contexts/video-context';
@@ -24,7 +24,7 @@ export default function ImportModal() {
 
     // Translations
     const t = {
-        title: isEnglish ? 'Import Configuration' : 'Importar Configuración',
+        title: isEnglish ? 'Import Backup' : 'Importar Backup',
         dropLabel: isEnglish ? 'Drop JSON file here or click to upload' : 'Arrastra el archivo JSON aquí o click para subir',
         importBtn: isEnglish ? 'Import' : 'Importar',
         cancelBtn: isEnglish ? 'Cancel' : 'Cancelar',
@@ -69,20 +69,7 @@ export default function ImportModal() {
     const handleImport = () => {
         if (!previewData) return;
 
-        // Merge logic: Add videos if they don't already exist (by ID or URL?)
-        // The UUID changes on addVideo if we use the context method which generates a new ID.
-        // We probably want to keep the exported IDs if possible, or just generate new ones to avoid collisions?
-        // Context `addVideo` omits ID. `updateVideo` takes ID.
-        // If I want to restore a backup, I might want exact restoration?
-        // But `addVideo` in context creates a NEW ID.
-        // Let's modify context or just loop and add.
-        // If we loop and add, we might duplicate content if URL exists.
-
-        // Let's look at `MusicBrowser`. It uses `addVideo`. 
-        // Let's check for duplicates by URL to be safe, creating a simplistic dedup.
-
         const existingUrls = new Set(videos.map(v => v.url));
-        let addedCount = 0;
 
         previewData.forEach(video => {
             if (!existingUrls.has(video.url)) {
@@ -91,7 +78,6 @@ export default function ImportModal() {
                     url: video.url,
                     tags: video.tags
                 });
-                addedCount++;
             }
         });
 
@@ -108,7 +94,7 @@ export default function ImportModal() {
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-zinc-100 dark:border-zinc-800">
                     <h1 className="text-lg font-semibold flex items-center gap-2 text-zinc-900 dark:text-zinc-100">
-                        <Upload className="w-5 h-5" />
+                        <FileDown className="w-5 h-5" />
                         {t.title}
                     </h1>
                     <Link to="/" className="p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer">
@@ -140,7 +126,7 @@ export default function ImportModal() {
                             </>
                         ) : (
                             <>
-                                <Upload className="w-10 h-10 text-zinc-400 mb-2" />
+                                <FileDown className="w-10 h-10 text-zinc-400 mb-2" />
                                 <span className="text-sm text-zinc-500 max-w-[200px]">{t.dropLabel}</span>
                             </>
                         )}
@@ -186,7 +172,7 @@ export default function ImportModal() {
                         disabled={!file || !previewData}
                         className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg shadow-sm transition-colors flex items-center gap-2 cursor-pointer disabled:cursor-not-allowed"
                     >
-                        <Upload className="w-4 h-4" />
+                        <FileDown className="w-4 h-4" />
                         {t.importBtn}
                     </button>
                 </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Download, X, CheckSquare, Square } from 'lucide-react';
+import { FileUp, X, CheckSquare, Square } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/language-context';
 import { useVideos } from '../contexts/video-context';
@@ -29,7 +29,7 @@ export default function ExportModal() {
 
     // Translations
     const t = {
-        title: isEnglish ? 'Export Configuration' : 'Exportar Configuración',
+        title: isEnglish ? 'Export Backup' : 'Exportar Backup',
         filenameLabel: isEnglish ? 'Filename' : 'Nombre del archivo',
         selectLabel: isEnglish ? 'Select tags to export:' : 'Elige qué tags exportar:',
         exportBtn: isEnglish ? 'Export' : 'Exportar',
@@ -51,12 +51,6 @@ export default function ExportModal() {
         const videosToExport = videos.filter(video =>
             video.tags.some(tag => tagsToExport.includes(tag))
         );
-
-        // Export format: just the list of videos, or wrapped?
-        // Plan says "JSON containing videos: Video[]" or compatible with context?
-        // VideoContext expects an array of videos to parse. 
-        // Let's stick to array of videos as per VideoContext load logic 
-        // "JSON.parse(storedVideos)" which returns Video[].
 
         const data = videosToExport;
 
@@ -81,7 +75,7 @@ export default function ExportModal() {
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-zinc-100 dark:border-zinc-800">
                     <h1 className="text-lg font-semibold flex items-center gap-2 text-zinc-900 dark:text-zinc-100">
-                        <Download className="w-5 h-5" />
+                        <FileUp className="w-5 h-5" />
                         {t.title}
                     </h1>
                     <Link to="/" className="p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
@@ -151,7 +145,7 @@ export default function ExportModal() {
                         onClick={handleExport}
                         className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition-colors flex items-center gap-2 cursor-pointer"
                     >
-                        <Download className="w-4 h-4" />
+                        <FileUp className="w-4 h-4" />
                         {t.exportBtn}
                     </button>
                 </div>

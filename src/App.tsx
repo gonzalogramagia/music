@@ -1,7 +1,6 @@
 import Home from './pages/Home'
 import Footer from './components/footer'
 import { FloatingLinks } from './components/floating-links'
-import { Github } from 'lucide-react'
 
 import { Routes, Route } from 'react-router-dom'
 import ExportPage from './pages/Export'
@@ -19,21 +18,23 @@ function AppContent() {
                             <FloatingLinks />
                         </main>
 
-                        <a
-                            href="https://github.com/gonzalogramagia/music"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="fixed bottom-8 right-8 p-3 bg-white border border-gray-200 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 group z-50 flex items-center justify-center"
-                            aria-label="GitHub Repository"
-                        >
-                            <Github className="w-6 h-6 text-gray-900 group-hover:text-blue-500 transition-colors" />
-                        </a>
+
                     </>
                 } />
                 <Route path="/export" element={<ExportPage />} />
                 <Route path="/import" element={<ImportPage />} />
                 <Route path="/exportar" element={<ExportPage />} />
+                <Route path="/exportar" element={<ExportPage />} />
                 <Route path="/importar" element={<ImportPage />} />
+                <Route path="/en" element={
+                    <>
+                        <main className="flex-auto min-w-0 mt-6 flex flex-col px-8 lg:px-0">
+                            <Home />
+                            <Footer />
+                            <FloatingLinks />
+                        </main>
+                    </>
+                } />
             </Routes>
         </div>
     );

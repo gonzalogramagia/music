@@ -51,9 +51,11 @@
 - **Play**: Click the card thumbnail to open the video in an embedded player.
 - **External Links**: Use the floating buttons for external tools or code.
 
-### 📦 Backup & Restore
-- **Export**: Go to `/export` (or `/exportar`) to download your library.
-- **Import**: Go to `/import` (or `/importar`) to upload a backup file.
+### 🛠️ Configuration & 📦 Backup
+- Click the **Wrench** icon in the bottom-right corner.
+- **Customize**: Set your preferred YouTube playlist URL.
+- **Tags**: Toggle visibility of specific tags to personalize your view.
+- **Data**: Access Import and Export features easily.
 
 ---
 

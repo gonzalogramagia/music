@@ -1,0 +1,166 @@
+import { Wrench, X, Eye, EyeOff, Link as LinkIcon, Save, FileDown, FileUp } from "lucide-react";
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useVideos } from "../contexts/video-context";
+
+// Assuming Language type is 'es' | 'en' based on context
+type Language = 'es' | 'en';
+
+interface ConfigModalProps {
+    lang: Language;
+    onClose: () => void;
+    exportPath: string;
+    importPath: string;
+}
+
+export default function ConfigModal({ lang, onClose, exportPath, importPath }: ConfigModalProps) {
+    const { videos } = useVideos();
+    const [playlistUrl, setPlaylistUrl] = useState("https://youtube.com/playlist?list=PL-0_mv1k_D3IR4LDICAe3TZH4xqCX9xsr");
+    const [hiddenTags, setHiddenTags] = useState<string[]>([]);
+
+    // Compute all unique tags from videos
+    const allTags = Array.from(new Set(videos.flatMap(v => v.tags))).sort();
+
+    useEffect(() => {
+        // Load initial state
+        const savedPlaylistUrl = localStorage.getItem('config-playlist-url');
+        const savedHiddenTags = localStorage.getItem('config-hidden-tags');
+
+        if (savedPlaylistUrl) setPlaylistUrl(savedPlaylistUrl);
+        if (savedHiddenTags) {
+            try {
+                setHiddenTags(JSON.parse(savedHiddenTags));
+            } catch (e) {
+                console.error("Failed to parse hidden tags", e);
+            }
+        }
+    }, []);
+
+    const handleSavePlaylistUrl = () => {
+        localStorage.setItem('config-playlist-url', playlistUrl);
+        window.dispatchEvent(new Event('config-update'));
+    };
+
+    const toggleTagVisibility = (tag: string) => {
+        const newHiddenTags = hiddenTags.includes(tag)
+            ? hiddenTags.filter(t => t !== tag)
+            : [...hiddenTags, tag];
+
+        setHiddenTags(newHiddenTags);
+        localStorage.setItem('config-hidden-tags', JSON.stringify(newHiddenTags));
+        window.dispatchEvent(new Event('config-update'));
+    };
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
+            <div className="absolute inset-0" onClick={onClose}></div>
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl p-6 w-full max-w-sm relative z-50 animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
+                <div className="flex items-center justify-between mb-6 sticky top-0 bg-white dark:bg-zinc-900 pb-2 z-10 border-b border-zinc-100 dark:border-zinc-800">
+                    <h2 className="text-xl font-semibold text-zinc-900 dark:text-white flex items-center gap-2">
+                        <Wrench className="w-5 h-5 scale-x-[-1]" />
+                        {lang === 'en' ? 'Configuration' : 'Configuración'}
+                    </h2>
+                    <button
+                        onClick={onClose}
+                        className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors cursor-pointer"
+                    >
+                        <X size={20} />
+                    </button>
+                </div>
+
+                <div className="space-y-6">
+                    {/* Language Switch - Hidden per user request */}
+                    {/* <div className="flex items-center justify-between p-3 bg-zinc-50 dark:bg-zinc-800/50 rounded-xl border border-zinc-100 dark:border-zinc-800">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 bg-white dark:bg-zinc-800 rounded-lg shadow-sm">
+                                <Languages size={20} className="text-zinc-600 dark:text-zinc-400" />
+                            </div>
+                            <span className="font-medium text-zinc-900 dark:text-zinc-100">
+                                {lang === 'en' ? 'English' : 'Español'}
+                            </span>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                            <input
+                                type="checkbox"
+                                className="sr-only peer"
+                                checked={lang === 'en'}
+                                onChange={toggleLanguage}
+                            />
+                            <div className="w-11 h-6 bg-zinc-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-zinc-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div> */}
+
+                    {/* Playlist URL Config */}
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
+                            <LinkIcon size={16} />
+                            {lang === 'en' ? '"More songs on..." URL' : 'URL de "Más canciones en..."'}
+                        </label>
+                        <div className="flex gap-2">
+                            <input
+                                type="text"
+                                value={playlistUrl}
+                                onChange={(e) => setPlaylistUrl(e.target.value)}
+                                className="flex-1 p-2 text-sm border border-zinc-200 dark:border-zinc-700 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="https://youtube.com/playlist..."
+                            />
+                            <button
+                                onClick={handleSavePlaylistUrl}
+                                className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
+                            >
+                                <Save size={18} />
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Tag Visibility */}
+                    <div className="space-y-2">
+                        <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                            {lang === 'en' ? 'Visible Tags' : 'Tags Visibles'}
+                        </h3>
+                        <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto pr-1 custom-scrollbar">
+                            {allTags.map(tag => (
+                                <div
+                                    key={tag}
+                                    className="flex items-center justify-between p-2 bg-zinc-50 dark:bg-zinc-800/50 rounded-lg border border-zinc-100 dark:border-zinc-800 cursor-pointer"
+                                    onClick={() => toggleTagVisibility(tag)}
+                                >
+                                    <span className="text-xs font-medium text-zinc-600 dark:text-zinc-400 truncate max-w-[80%]">
+                                        {tag}
+                                    </span>
+                                    {hiddenTags.includes(tag) ? (
+                                        <EyeOff size={14} className="text-zinc-400" />
+                                    ) : (
+                                        <Eye size={14} className="text-blue-500" />
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Export / Import Buttons */}
+                    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-zinc-100 dark:border-zinc-800">
+                        <Link
+                            to={importPath}
+                            className="flex flex-col items-center justify-center gap-2 p-4 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all group cursor-pointer"
+                        >
+                            <FileDown size={24} className="text-zinc-500 group-hover:text-blue-500 transition-colors" />
+                            <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-200">
+                                {lang === 'en' ? 'Import Backup' : 'Importar Backup'}
+                            </span>
+                        </Link>
+                        <Link
+                            to={exportPath}
+                            className="flex flex-col items-center justify-center gap-2 p-4 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all group cursor-pointer"
+                        >
+                            <FileUp size={24} className="text-zinc-500 group-hover:text-blue-500 transition-colors" />
+                            <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-200">
+                                {lang === 'en' ? 'Export Backup' : 'Exportar Backup'}
+                            </span>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
