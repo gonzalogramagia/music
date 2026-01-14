@@ -50,7 +50,13 @@
 
 ### 🎧 Listening
 - **Play**: Click the card thumbnail to open the video in an embedded player.
-- **External Links**: Use the floating buttons for external tools or code.
+
+### 🧭 Quick Access
+- **Home** (🏠): Navigate to your personal homepage
+- **Emojis** (😊): Access the emoji picker app
+- **Music** (🎵): Currently disabled (you're already here!)
+- **Training** (💪): Go to your training app at entrenar.app
+- **Config/GitHub** (🔧/📂): Toggle between settings and GitHub repository
 
 ### 🛠️ Configuration & 📦 Backup
 - Click the **Wrench** icon in the bottom-right corner.
