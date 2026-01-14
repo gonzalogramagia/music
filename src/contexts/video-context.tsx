@@ -80,25 +80,8 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
         if (storedVideos) {
             try {
                 const parsed: Video[] = JSON.parse(storedVideos);
-                if (parsed.length > 0) {
-                    // Merge defaults: Update existing defaults, Add missing defaults
-                    let updatedVideos = [...parsed];
-
-                    defaultVideos.forEach(defVid => {
-                        const index = updatedVideos.findIndex(v => v.id === defVid.id);
-                        if (index !== -1) {
-                            // Update existing default video with latest metadata
-                            updatedVideos[index] = { ...updatedVideos[index], ...defVid };
-                        } else {
-                            // Add new default video if it doesn't exist
-                            updatedVideos.push(defVid);
-                        }
-                    });
-
-                    setVideos(updatedVideos);
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedVideos));
-                    return;
-                }
+                setVideos(parsed);
+                return;
             } catch (e) {
                 console.error('Failed to parse videos from local storage', e);
             }

@@ -284,9 +284,11 @@ export function MusicBrowser() {
                                         <p className="text-lg">"{search}"</p>
                                     </>
                                 ) : (
-                                    <p>{t('noSongsFound')}</p>
+                                    <>
+                                        <p className="font-bold text-neutral-900">{t('noSongsFound')}</p>
+                                    </>
                                 )}
-                                <p className="text-neutral-600 mt-12 mb-0 text-center text-sm">
+                                <p className="text-neutral-600 mt-12 mb-0 text-center text-base">
                                     {t('moreSongsIn')}{" "}
                                     <a
                                         href={playlistUrl}

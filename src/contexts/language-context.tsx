@@ -50,7 +50,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
             tagsLabel: "Tags (separados por coma)",
             tagsPlaceholder: "Rap, Electrónica, Motivación, Energía",
             saveChanges: "Guardar Cambios",
-            previewNotAvailable: "Vista previa no disponible"
+            previewNotAvailable: "Vista previa no disponible",
         },
         en: {
             ariaHome: "Go to Home",
@@ -74,7 +74,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
             tagsLabel: "Tags (comma separated)",
             tagsPlaceholder: "Rap, Electronic, Motivation, Energy",
             saveChanges: "Save Changes",
-            previewNotAvailable: "No preview available"
+            previewNotAvailable: "No preview available",
+            clickButtonToAdd: "Click the button above to add one"
         }
     }
 
