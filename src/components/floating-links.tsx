@@ -92,7 +92,7 @@ export function FloatingLinks() {
                 {/* Training Button */}
                 <a
                     href={trainingUrl}
-                    className="p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 group cursor-pointer"
+                    className="hidden md:block p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 group cursor-pointer"
                     aria-label={t('ariaTraining')}
                     title={t('ariaTraining')}
                 >
