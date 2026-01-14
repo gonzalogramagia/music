@@ -119,7 +119,7 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
                             />
                             <button
                                 onClick={handleSavePlaylistUrl}
-                                className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
+                                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
                             >
                                 <Save size={18} />
                             </button>
@@ -127,7 +127,7 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
                     </div>
 
                     {/* Export / Import Buttons */}
-                    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-zinc-100 dark:border-zinc-800">
+                    <div className="hidden md:grid grid-cols-2 gap-3 pt-2 border-t border-zinc-100 dark:border-zinc-800">
                         <Link
                             to={importPath}
                             className="flex flex-col items-center justify-center gap-2 p-4 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all group cursor-pointer"
