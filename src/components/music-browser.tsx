@@ -66,6 +66,17 @@ export function MusicBrowser() {
     const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
     const [hiddenTags, setHiddenTags] = useState<string[]>([]);
     const [playlistUrl, setPlaylistUrl] = useState("https://youtube.com/playlist?list=PL-0_mv1k_D3IR4LDICAe3TZH4xqCX9xsr");
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -177,7 +188,7 @@ export function MusicBrowser() {
         return translation === key ? tag : translation;
     };
 
-    const isReorderingAllowed = !search.trim() && !activeTag && hiddenTags.length === 0;
+    const isReorderingAllowed = !search.trim() && !activeTag && hiddenTags.length === 0 && !isMobile;
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;

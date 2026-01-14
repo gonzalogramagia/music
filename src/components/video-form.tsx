@@ -46,10 +46,17 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData, initialName 
     };
 
     const handleUrlBlur = async () => {
-        if (!url || name) return;
+        let formattedUrl = url.trim();
+
+        if (formattedUrl && !/^https?:\/\//i.test(formattedUrl)) {
+            formattedUrl = 'https://' + formattedUrl;
+            setUrl(formattedUrl);
+        }
+
+        if (!formattedUrl || name) return;
 
         try {
-            const response = await fetch(`https://noembed.com/embed?url=${url}`);
+            const response = await fetch(`https://noembed.com/embed?url=${formattedUrl}`);
             const data = await response.json();
             if (data.title) {
                 setName(data.title);
