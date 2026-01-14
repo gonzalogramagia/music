@@ -1,4 +1,4 @@
-import { Home, Smile, Music, BowArrow, Github, Wrench } from 'lucide-react'
+import { Home, Smile, Music, BicepsFlexed, Github, Wrench } from 'lucide-react'
 import { useLanguage } from '../contexts/language-context'
 import { useState } from 'react'
 import ConfigModal from './ConfigModal'
@@ -16,8 +16,8 @@ export function FloatingLinks() {
     const emojisUrl = getUrl("https://emojis.gonzalogramagia.com")
     // const musicUrl = getUrl("https://music.gonzalogramagia.com") // Unused because button is disabled
 
-    // Apply localization to Tasks as well per user request "todos los botones"
-    const tasksUrlLocalized = isEnglish ? "https://tasks.gonzalogramagia.com/en" : "https://tasks.gonzalogramagia.com"
+    // Training button - no localization needed, single URL
+    const trainingUrl = "https://entrenar.app"
 
     const exportPath = isEnglish ? '/export' : '/exportar'
     const importPath = isEnglish ? '/import' : '/importar'
@@ -89,14 +89,14 @@ export function FloatingLinks() {
                     <Music className="w-6 h-6 text-zinc-900 dark:text-white transition-colors" />
                 </button>
 
-                {/* Tasks Button */}
+                {/* Training Button */}
                 <a
-                    href={tasksUrlLocalized}
+                    href={trainingUrl}
                     className="p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 group cursor-pointer"
-                    aria-label={t('ariaTasks')}
-                    title={t('ariaTasks')}
+                    aria-label={t('ariaTraining')}
+                    title={t('ariaTraining')}
                 >
-                    <BowArrow className="w-6 h-6 text-gray-900 dark:text-white group-hover:text-yellow-500 transition-colors" />
+                    <BicepsFlexed className="w-6 h-6 text-gray-900 dark:text-white group-hover:text-yellow-500 transition-colors" />
                 </a>
             </div>
         </>
