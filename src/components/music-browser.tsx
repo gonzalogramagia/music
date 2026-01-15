@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useVideos, Video } from "../contexts/video-context";
+import { useToast } from "../contexts/toast-context";
 import { useLanguage } from "../contexts/language-context";
 import { VideoForm } from "./video-form";
 import VideoPlayerModal from "./VideoPlayerModal";
@@ -57,6 +58,7 @@ function SortableVideoItem({ id, children, disabled }: { id: string, children: R
 
 export function MusicBrowser() {
     const { videos, addVideo, updateVideo, deleteVideo, reorderVideos } = useVideos();
+    const { toast } = useToast();
     const { t } = useLanguage();
     const [search, setSearch] = useState("");
     const [activeTag, setActiveTag] = useState<string | null>(null);
@@ -175,8 +177,10 @@ export function MusicBrowser() {
     const handleFormSubmit = (videoData: Omit<Video, 'id' | 'embedUrl'>) => {
         if (editingVideo) {
             updateVideo(editingVideo.id, videoData);
+            toast(t('toastSongUpdated'), 'success');
         } else {
             addVideo(videoData);
+            toast(t('toastSongAdded'), 'success');
         }
     };
 

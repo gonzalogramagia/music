@@ -51,6 +51,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
             tagsPlaceholder: "Rap, Electrónica, Motivación, Energía",
             saveChanges: "Guardar Cambios",
             previewNotAvailable: "Vista previa no disponible",
+            toastSongAdded: "Canción agregada a la biblioteca",
+            toastSongUpdated: "Canción actualizada correctamente",
         },
         en: {
             ariaHome: "Go to Home",
@@ -75,7 +77,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
             tagsPlaceholder: "Rap, Electronic, Motivation, Energy",
             saveChanges: "Save Changes",
             previewNotAvailable: "No preview available",
-            clickButtonToAdd: "Click the button above to add one"
+            clickButtonToAdd: "Click the button above to add one",
+            toastSongAdded: "Song added to library",
+            toastSongUpdated: "Song updated successfully",
         }
     }
 

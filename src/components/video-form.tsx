@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Video } from '../contexts/video-context';
 import { useLanguage } from '../contexts/language-context';
 import { X, Search } from 'lucide-react';
+import { normalizeUrl } from '../utils/url-utils';
 
 interface VideoFormProps {
     isOpen: boolean;
@@ -39,19 +40,15 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData, initialName 
         e.preventDefault();
         onSubmit({
             name,
-            url,
+            url: normalizeUrl(url),
             tags: tags.split(',').map(t => t.trim()).filter(Boolean)
         });
         onClose();
     };
 
     const handleUrlBlur = async () => {
-        let formattedUrl = url.trim();
-
-        if (formattedUrl && !/^https?:\/\//i.test(formattedUrl)) {
-            formattedUrl = 'https://' + formattedUrl;
-            setUrl(formattedUrl);
-        }
+        const formattedUrl = normalizeUrl(url);
+        setUrl(formattedUrl);
 
         if (!formattedUrl || name) return;
 

@@ -46,12 +46,15 @@ function AppContent() {
 
 import { VideoProvider } from './contexts/video-context'
 import { LanguageProvider } from './contexts/language-context'
+import { ToastProvider } from './contexts/toast-context'
 
 function App() {
     return (
         <LanguageProvider>
             <VideoProvider>
-                <AppContent />
+                <ToastProvider>
+                    <AppContent />
+                </ToastProvider>
             </VideoProvider>
         </LanguageProvider>
     )

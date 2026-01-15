@@ -2,7 +2,9 @@ import { Wrench, X, Eye, EyeOff, Link as LinkIcon, Save, FileDown, FileUp } from
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { useVideos } from "../contexts/video-context";
+import { useToast } from "../contexts/toast-context";
 import { LanguageSwitch } from "./language-switch";
+import { normalizeUrl } from "../utils/url-utils";
 
 // Assuming Language type is 'es' | 'en' based on context
 type Language = 'es' | 'en';
@@ -16,6 +18,7 @@ interface ConfigModalProps {
 
 export default function ConfigModal({ lang, onClose, exportPath, importPath }: ConfigModalProps) {
     const { videos } = useVideos();
+    const { toast } = useToast();
     const [playlistUrl, setPlaylistUrl] = useState("https://youtube.com/playlist?list=PL-0_mv1k_D3IR4LDICAe3TZH4xqCX9xsr");
     const [hiddenTags, setHiddenTags] = useState<string[]>([]);
 
@@ -38,8 +41,12 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
     }, []);
 
     const handleSavePlaylistUrl = () => {
-        localStorage.setItem('config-playlist-url', playlistUrl);
+        const url = normalizeUrl(playlistUrl);
+        setPlaylistUrl(url);
+        localStorage.setItem('config-playlist-url', url);
         window.dispatchEvent(new Event('config-update'));
+        toast(lang === 'en' ? 'Changes saved' : 'Cambios guardados', 'success');
+        onClose();
     };
 
     const toggleTagVisibility = (tag: string) => {
@@ -114,6 +121,7 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
                                 type="text"
                                 value={playlistUrl}
                                 onChange={(e) => setPlaylistUrl(e.target.value)}
+                                onBlur={() => setPlaylistUrl(normalizeUrl(playlistUrl))}
                                 className="flex-1 p-2 text-sm border border-zinc-200 dark:border-zinc-700 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 focus:outline-none focus:ring-2 focus:ring-[#6866D6]"
                                 placeholder="https://youtube.com/playlist..."
                             />
