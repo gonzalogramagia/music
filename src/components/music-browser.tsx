@@ -301,17 +301,19 @@ export function MusicBrowser() {
                                         <p className="font-bold text-neutral-900">{t('noSongsFound')}</p>
                                     </>
                                 )}
-                                <p className="text-neutral-600 mt-12 mb-0 text-center text-base">
-                                    {t('moreSongsIn')}{" "}
-                                    <a
-                                        href={playlistUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-[#6866D6] hover:underline break-all"
-                                    >
-                                        {playlistUrl}
-                                    </a>
-                                </p>
+                                <a
+                                    href={playlistUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block mt-12 mb-0 text-center mx-auto max-w-lg !text-[#6866D6] hover:!text-[#5856b3] transition-colors group cursor-pointer"
+                                >
+                                    <p className="text-base group-hover:underline">
+                                        {t('moreSongsIn')}{" "}
+                                        <span className="break-all">
+                                            {playlistUrl}
+                                        </span>
+                                    </p>
+                                </a>
                             </div>
                         )}
 
