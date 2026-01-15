@@ -347,8 +347,9 @@ export function MusicBrowser() {
 
                                 <div className="p-4">
                                     <h3
-                                        className="font-semibold text-gray-900 truncate text-sm leading-tight group-hover:text-[#6866D6] transition-colors"
+                                        className="font-semibold text-gray-900 truncate text-sm leading-tight group-hover:text-[#6866D6] transition-colors cursor-pointer"
                                         title={video.name}
+                                        onClick={() => setPlayingVideo(video)}
                                     >
                                         {video.name}
                                     </h3>
