@@ -92,7 +92,7 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData, initialName 
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 required
-                                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6866D6] focus:border-[#6866D6] outline-none transition-all"
                                 placeholder={t('namePlaceholder')}
                             />
                             <button
@@ -121,7 +121,7 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData, initialName 
                             onChange={(e) => setUrl(e.target.value)}
                             onBlur={handleUrlBlur}
                             required
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6866D6] focus:border-[#6866D6] outline-none transition-all"
                             placeholder="https://www.youtube.com/watch?v=..."
                         />
                     </div>
@@ -136,7 +136,7 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData, initialName 
                             type="text"
                             value={tags}
                             onChange={(e) => setTags(e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6866D6] focus:border-[#6866D6] outline-none transition-all"
                             placeholder={t('tagsPlaceholder')}
                         />
                     </div>
@@ -144,7 +144,7 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData, initialName 
                     <div className="pt-2">
                         <button
                             type="submit"
-                            className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-lg hover:shadow-xl hover:-translate-y-0.5 cursor-pointer"
+                            className="w-full py-2.5 px-4 bg-[#6866D6] hover:bg-[#5856c6] text-white font-medium rounded-lg transition-colors shadow-lg hover:shadow-xl hover:-translate-y-0.5 cursor-pointer"
                         >
                             {t('saveChanges')}
                         </button>

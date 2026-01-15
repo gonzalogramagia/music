@@ -96,7 +96,7 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
                                     {hiddenTags.includes(tag) ? (
                                         <EyeOff size={14} className="text-zinc-400" />
                                     ) : (
-                                        <Eye size={14} className="text-blue-500" />
+                                        <Eye size={14} className="text-[#6866D6]" />
                                     )}
                                 </div>
                             ))}
@@ -114,12 +114,12 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
                                 type="text"
                                 value={playlistUrl}
                                 onChange={(e) => setPlaylistUrl(e.target.value)}
-                                className="flex-1 p-2 text-sm border border-zinc-200 dark:border-zinc-700 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="flex-1 p-2 text-sm border border-zinc-200 dark:border-zinc-700 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 focus:outline-none focus:ring-2 focus:ring-[#6866D6]"
                                 placeholder="https://youtube.com/playlist..."
                             />
                             <button
                                 onClick={handleSavePlaylistUrl}
-                                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
+                                className="px-4 py-2 bg-[#6866D6] text-white rounded-lg hover:bg-[#5856c6] transition-colors cursor-pointer"
                             >
                                 <Save size={18} />
                             </button>
@@ -132,7 +132,7 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
                             to={importPath}
                             className="flex flex-col items-center justify-center gap-2 p-4 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all group cursor-pointer"
                         >
-                            <FileDown size={24} className="text-zinc-500 group-hover:text-blue-500 transition-colors" />
+                            <FileDown size={24} className="text-zinc-500 group-hover:text-[#6866D6] transition-colors" />
                             <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-200">
                                 {lang === 'en' ? 'Import Backup' : 'Importar Backup'}
                             </span>
@@ -141,7 +141,7 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
                             to={exportPath}
                             className="flex flex-col items-center justify-center gap-2 p-4 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all group cursor-pointer"
                         >
-                            <FileUp size={24} className="text-zinc-500 group-hover:text-blue-500 transition-colors" />
+                            <FileUp size={24} className="text-zinc-500 group-hover:text-[#6866D6] transition-colors" />
                             <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-200">
                                 {lang === 'en' ? 'Export Backup' : 'Exportar Backup'}
                             </span>

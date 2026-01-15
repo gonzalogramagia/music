@@ -99,7 +99,7 @@ export default function ExportModal() {
                                 type="text"
                                 value={filename}
                                 onChange={(e) => setFilename(e.target.value)}
-                                className="flex-1 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-zinc-900 dark:text-zinc-100"
+                                className="flex-1 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#6866D6] text-zinc-900 dark:text-zinc-100"
                                 placeholder="backup"
                             />
                             <div className="bg-zinc-100 dark:bg-zinc-800 border border-l-0 border-zinc-200 dark:border-zinc-700 rounded-r-md px-3 py-2 text-sm text-zinc-500">
@@ -123,7 +123,7 @@ export default function ExportModal() {
                                     onClick={() => toggleTag(tag)}
                                     className="flex items-center gap-3 p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors"
                                 >
-                                    <div className={`${selectedTags[tag] ? 'text-blue-600 dark:text-blue-400' : 'text-zinc-300 dark:text-zinc-600'}`}>
+                                    <div className={`${selectedTags[tag] ? 'text-[#6866D6] dark:text-[#6866D6]' : 'text-zinc-300 dark:text-zinc-600'}`}>
                                         {selectedTags[tag] ? <CheckSquare className="w-5 h-5" /> : <Square className="w-5 h-5" />}
                                     </div>
                                     <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">{tag}</span>
@@ -143,7 +143,7 @@ export default function ExportModal() {
                     </Link>
                     <button
                         onClick={handleExport}
-                        className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition-colors flex items-center gap-2 cursor-pointer"
+                        className="px-4 py-2 text-sm font-medium text-white bg-[#6866D6] hover:bg-[#5856c6] rounded-lg shadow-sm transition-colors flex items-center gap-2 cursor-pointer"
                     >
                         <FileUp className="w-4 h-4" />
                         {t.exportBtn}

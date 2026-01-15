@@ -108,7 +108,7 @@ export default function ImportModal() {
                     {/* File Upload */}
                     <div
                         onClick={() => fileInputRef.current?.click()}
-                        className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-colors ${file ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' : 'border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-600'
+                        className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-colors ${file ? 'border-[#6866D6] bg-[#6866D6]/10 dark:bg-[#6866D6]/20' : 'border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-600'
                             }`}
                     >
                         <input
@@ -120,7 +120,7 @@ export default function ImportModal() {
                         />
                         {file ? (
                             <>
-                                <FileJson className="w-10 h-10 text-blue-500 mb-2" />
+                                <FileJson className="w-10 h-10 text-[#6866D6] mb-2" />
                                 <span className="font-medium text-sm text-zinc-900 dark:text-zinc-100">{file.name}</span>
                                 <span className="text-xs text-zinc-500">{(file.size / 1024).toFixed(1)} KB</span>
                             </>
@@ -143,7 +143,7 @@ export default function ImportModal() {
                     {previewData && !error && (
                         <div className="bg-zinc-50 dark:bg-zinc-800/50 rounded-lg p-4 animate-in fade-in slide-in-from-top-4 duration-300">
                             <p className="text-sm text-zinc-700 dark:text-zinc-300 font-medium">
-                                {t.videosFound} <span className="text-blue-600 dark:text-blue-400">{previewData.length}</span>
+                                {t.videosFound} <span className="text-[#6866D6] dark:text-[#6866D6]">{previewData.length}</span>
                             </p>
                             <div className="mt-2 flex flex-wrap gap-1 max-h-20 overflow-y-auto">
                                 {Array.from(new Set(previewData.flatMap(v => v.tags))).slice(0, 10).map(tag => (
@@ -170,7 +170,7 @@ export default function ImportModal() {
                     <button
                         onClick={handleImport}
                         disabled={!file || !previewData}
-                        className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg shadow-sm transition-colors flex items-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+                        className="px-4 py-2 text-sm font-medium text-white bg-[#6866D6] hover:bg-[#5856c6] disabled:opacity-50 disabled:cursor-not-allowed rounded-lg shadow-sm transition-colors flex items-center gap-2 cursor-pointer disabled:cursor-not-allowed"
                     >
                         <FileDown className="w-4 h-4" />
                         {t.importBtn}

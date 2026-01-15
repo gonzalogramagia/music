@@ -34,7 +34,7 @@ export function FloatingLinks() {
                         target="_blank"
                         rel="noreferrer"
                     >
-                        <Github className="w-6 h-6 text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors" />
+                        <Github className="w-6 h-6 text-gray-900 dark:text-white group-hover:text-[#6866D6] transition-colors" />
                     </a>
                 ) : (
                     <button

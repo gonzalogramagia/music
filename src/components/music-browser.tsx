@@ -220,7 +220,7 @@ export function MusicBrowser() {
                                     handleUnpinTag();
                                 }
                             }}
-                            className="w-full pl-10 pr-4 py-2 rounded-lg border border-neutral-300 bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-neutral-900"
+                            className="w-full pl-10 pr-4 py-2 rounded-lg border border-neutral-300 bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-[#6866D6] transition-all text-neutral-900"
                         />
                     </div>
                     <div className="hidden md:block">
@@ -230,10 +230,10 @@ export function MusicBrowser() {
 
                 {activeTag && (
                     <div className="flex items-center cursor-pointer" onClick={() => setActiveTag(null)}>
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-200 transition-colors">
-                            <Hash className="w-3.5 h-3.5" />
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#6866D6]/10 text-[#6866D6] rounded-full text-xs font-medium hover:bg-[#6866D6]/20 transition-colors">
+                            <Hash className="w-3 h-3.5" />
                             {activeTag}
-                            <button className="ml-1 p-0.5 rounded-full transition-colors cursor-pointer">
+                            <button className="p-0 rounded-full transition-colors cursor-pointer">
                                 <X className="w-3.5 h-3.5" />
                             </button>
                         </span>
@@ -275,15 +275,15 @@ export function MusicBrowser() {
                                 setEditingVideo(undefined);
                                 setIsFormOpen(true);
                             }}
-                            className={`flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all group cursor-pointer ${filteredVideos.length === 0
+                            className={`flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl hover:border-[#6866D6] hover:bg-[#6866D6]/10 transition-all group cursor-pointer ${filteredVideos.length === 0
                                 ? 'md:col-start-2 min-h-[240px]'
                                 : 'min-h-[220px]'
                                 }`}
                         >
-                            <div className="h-12 w-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-sm">
+                            <div className="h-12 w-12 bg-[#6866D6]/20 text-[#6866D6] rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-sm">
                                 <Plus className="w-6 h-6" />
                             </div>
-                            <span className="font-medium text-gray-600 group-hover:text-blue-600 text-sm">{t('addSong')}</span>
+                            <span className="font-medium text-gray-600 group-hover:text-[#6866D6] text-sm">{t('addSong')}</span>
                         </button>
 
                         {filteredVideos.length === 0 && !isFormOpen && (
@@ -307,7 +307,7 @@ export function MusicBrowser() {
                                         href={playlistUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-blue-600 hover:underline break-all"
+                                        className="text-[#6866D6] hover:underline break-all"
                                     >
                                         {playlistUrl}
                                     </a>
@@ -346,7 +346,10 @@ export function MusicBrowser() {
                                 </div>
 
                                 <div className="p-4">
-                                    <h3 className="font-semibold text-gray-900 truncate text-sm leading-tight group-hover:text-blue-600 transition-colors" title={video.name}>
+                                    <h3
+                                        className="font-semibold text-gray-900 truncate text-sm leading-tight group-hover:text-[#6866D6] transition-colors"
+                                        title={video.name}
+                                    >
                                         {video.name}
                                     </h3>
                                     <div className="flex justify-between items-end mt-2 gap-2">
@@ -369,7 +372,7 @@ export function MusicBrowser() {
                                                     e.stopPropagation();
                                                     handleEdit(video);
                                                 }}
-                                                className="p-1.5 bg-gray-100 hover:bg-blue-50 text-neutral-600 hover:text-blue-600 rounded-full transition-all cursor-pointer"
+                                                className="p-1.5 bg-gray-100 hover:bg-[#6866D6]/10 text-neutral-600 hover:text-[#6866D6] rounded-full transition-all cursor-pointer"
                                                 title={t('edit')}
                                             >
                                                 <Pencil size={12} />
