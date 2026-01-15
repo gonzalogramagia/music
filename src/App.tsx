@@ -9,6 +9,10 @@ import ImportPage from './pages/Import'
 function AppContent() {
     return (
         <div className="max-w-4xl mx-4 mt-8 lg:mx-auto">
+            <div
+                className="fixed inset-0 z-[-1] bg-cover bg-center bg-fixed bg-no-repeat opacity-5"
+                style={{ backgroundImage: "url('/wallpaper.png')" }}
+            />
             <Routes>
                 <Route path="/" element={
                     <>
