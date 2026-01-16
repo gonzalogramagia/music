@@ -73,6 +73,13 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
                 url: 'https://youtu.be/2yGZPCjtGJ8',
                 tags: ['Rap'],
                 embedUrl: getEmbedUrl('https://youtu.be/2yGZPCjtGJ8')
+            },
+            {
+                id: 'default-song-3',
+                name: 'Zero Distractions - Chillstep Mix for Full Focus',
+                url: 'https://www.youtube.com/watch?v=hbPoX4vjB5o',
+                tags: ['Focus'],
+                embedUrl: getEmbedUrl('https://www.youtube.com/watch?v=hbPoX4vjB5o')
             }
         ];
 
