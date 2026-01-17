@@ -277,7 +277,7 @@ export function MusicBrowser() {
                 </div>
 
                 {activeTag && (
-                    <div className="flex items-center cursor-pointer" onClick={() => setActiveTag(null)}>
+                    <div className="flex items-center justify-center md:justify-start cursor-pointer" onClick={() => setActiveTag(null)}>
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#6866D6]/10 text-[#6866D6] rounded-full text-xs font-medium hover:bg-[#6866D6]/20 transition-colors">
                             <Hash className="w-3 h-3.5" />
                             {activeTag}
