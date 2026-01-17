@@ -52,9 +52,9 @@
 - **Play**: Click the card thumbnail to open the video in an embedded player.
 
 ### 🧭 Quick Access
-- **Home** (🏠): Navigate to your personal homepage
-- **Emojis** (😊): Access the emoji picker app
-- **Music** (🎵): Currently disabled (you're already here!)
+- **Today** (📅): Navigate to your personal dashboard
+- **Emojis** (😎): Access the emoji picker app
+- **Music** (🎵): You are here!
 - **Play** (🎮): Take a break and play.
 - **Config/GitHub** (🔧/📂): Toggle between settings and GitHub repository
 
