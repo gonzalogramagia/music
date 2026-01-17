@@ -1,4 +1,4 @@
-import { ClipboardClock, Smile, Music, BicepsFlexed, Github, Wrench } from 'lucide-react'
+import { ClipboardClock, Smile, Music, BicepsFlexed, Github, Wrench, Zap } from 'lucide-react'
 import { useLanguage } from '../contexts/language-context'
 import { useState } from 'react'
 import ConfigModal from './ConfigModal'
@@ -13,6 +13,7 @@ export function FloatingLinks() {
 
     const homeUrl = getUrl("https://today.gonzalogramagia.com")
     const emojisUrl = getUrl("https://emojis.gonzalogramagia.com")
+    const moovimientoUrl = getUrl("https://mas.moovimiento.com")
     // const musicUrl = getUrl("https://music.gonzalogramagia.com") // You are here!
 
     // Training button
@@ -23,6 +24,21 @@ export function FloatingLinks() {
 
     return (
         <>
+            {/* Top Right Button: Moovimiento (Visible only when Config is open) */}
+            {isSettingsOpen && (
+                <div className="fixed top-8 right-8 z-[110]">
+                    <a
+                        href={moovimientoUrl}
+                        className="block p-3 border border-zinc-200 dark:border-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 group bg-white dark:bg-zinc-900"
+                        aria-label="Moovimiento"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        <Zap className="w-6 h-6 text-zinc-900 dark:text-white group-hover:text-yellow-500 transition-colors" />
+                    </a>
+                </div>
+            )}
+
             {/* Right Side Buttons: Config / Github Toggle */}
             <div className="fixed bottom-8 right-8 flex gap-3 z-[110]">
                 {isSettingsOpen ? (
