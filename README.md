@@ -55,7 +55,7 @@
 - **Home** (🏠): Navigate to your personal homepage
 - **Emojis** (😊): Access the emoji picker app
 - **Music** (🎵): Currently disabled (you're already here!)
-- **Training** (💪): Go to your training app at entrenar.app
+- **Play** (🎮): Take a break and play.
 - **Config/GitHub** (🔧/📂): Toggle between settings and GitHub repository
 
 ### 🛠️ Configuration & 📦 Backup
