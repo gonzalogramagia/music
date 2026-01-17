@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { useVideos } from "../contexts/video-context";
 import { useToast } from "../contexts/toast-context";
-import { LanguageSwitch } from "./language-switch";
+
 import { normalizeUrl } from "../utils/url-utils";
 
 // Assuming Language type is 'es' | 'en' based on context
@@ -77,13 +77,7 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
                 </div>
 
                 <div className="space-y-6">
-                    {/* Language Switch - Mobile Only */}
-                    <div className="md:hidden flex flex-col gap-2">
-                        <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                            {lang === 'en' ? 'Switch Language' : 'Cambiar Idioma'}
-                        </span>
-                        <LanguageSwitch />
-                    </div>
+
 
                     {/* Tag Visibility */}
                     <div className="space-y-2">

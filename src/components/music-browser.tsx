@@ -59,7 +59,7 @@ function SortableVideoItem({ id, children, disabled }: { id: string, children: R
 export function MusicBrowser() {
     const { videos, addVideo, updateVideo, deleteVideo, reorderVideos } = useVideos();
     const { toast } = useToast();
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const [search, setSearch] = useState("");
     const [activeTag, setActiveTag] = useState<string | null>(null);
     const [isFormOpen, setIsFormOpen] = useState(false);
@@ -208,9 +208,52 @@ export function MusicBrowser() {
     };
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-4 md:space-y-8">
+            <div className="flex flex-col md:flex-row items-center justify-center pt-0 pb-0 md:pt-0 md:pb-0 gap-0 md:gap-1 max-w-4xl mx-auto">
+                <img
+                    src="/dj.png"
+                    alt="DJ"
+                    /* Ajuste de márgenes negativos y condicionales según idioma */
+                    className={`h-60 md:h-72 w-auto object-contain hover:scale-105 transition-transform duration-500 drop-shadow-2xl -mt-6 -mb-4 md:mt-0 md:mb-0 md:-mr-4 ${language === 'en' ? 'md:ml-0' : 'md:ml-16'}`}
+                />
+                <div className="flex flex-col items-center md:items-start md:gap-0">
+                    <h1 className="mx-auto md:mx-0 md:max-w-xl text-3xl md:text-5xl font-extrabold text-center md:text-left text-neutral-900 leading-tight tracking-tight">
+                        {language === 'en' ? (
+                            <>
+                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600">
+                                    Your perfect soundtrack{" "}
+                                </span>
+                                <span className="text-[#6866D6] block">
+                                    in a flash!
+                                </span>
+                            </>
+                        ) : (
+                            <>
+                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600">
+                                    ¡Tu banda sonora{" "}
+                                </span>
+                                <span className="block md:inline">
+                                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600">
+                                        perfecta{" "}
+                                    </span>
+                                    <span className="text-[#6866D6]">
+                                        al instante!
+                                    </span>
+                                </span>
+                            </>
+                        )}
+                    </h1>
+                    {/* Switch de idioma para mobile debajo del título */}
+                    <div className="md:hidden flex items-center gap-2 mt-6 mb-0">
+                        <span className="text-sm text-neutral-600 font-medium">
+                            {language === 'en' ? 'Switch language' : 'Cambiar idioma'}
+                        </span>
+                        <LanguageSwitch />
+                    </div>
+                </div>
+            </div>
             {/* Sticky Header */}
-            <div className="sticky top-0 z-10 bg-white py-4 border-b border-neutral-200 space-y-3">
+            <div className="sticky top-0 z-10 bg-white py-2 md:py-4 border-b border-neutral-200 space-y-3">
                 <div className="flex items-center gap-4">
                     <div className="relative flex-1">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 w-5 h-5" />
@@ -246,7 +289,7 @@ export function MusicBrowser() {
 
                 {/* Tag Cloud */}
                 {allTags.length > 0 && !activeTag && (
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 justify-center md:justify-start pb-2">
                         {allTags.map(tag => (
                             <button
                                 key={tag}
