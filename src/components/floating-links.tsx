@@ -1,23 +1,22 @@
-import { Home, Smile, Music, BicepsFlexed, Github, Wrench } from 'lucide-react'
+import { ClipboardClock, Smile, Music, BicepsFlexed, Github, Wrench } from 'lucide-react'
 import { useLanguage } from '../contexts/language-context'
 import { useState } from 'react'
 import ConfigModal from './ConfigModal'
 
 export function FloatingLinks() {
     const { language, t } = useLanguage()
-    // const navigate = useNavigate() // Removing unused navigate
     const isEnglish = language === 'en'
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
     // Logic for URLs
     const getUrl = (baseUrl: string) => isEnglish ? `${baseUrl}/en` : baseUrl
 
-    const homeUrl = getUrl("https://home.gonzalogramagia.com")
+    const homeUrl = getUrl("https://today.gonzalogramagia.com")
     const emojisUrl = getUrl("https://emojis.gonzalogramagia.com")
-    // const musicUrl = getUrl("https://music.gonzalogramagia.com") // Unused because button is disabled
+    // const musicUrl = getUrl("https://music.gonzalogramagia.com") // You are here!
 
-    // Training button - no localization needed, single URL
-    const trainingUrl = "https://entrenar.app"
+    // Training button
+    const trainingUrl = getUrl("https://entrenar.app")
 
     const exportPath = isEnglish ? '/export' : '/exportar'
     const importPath = isEnglish ? '/import' : '/importar'
@@ -66,7 +65,7 @@ export function FloatingLinks() {
                     aria-label={t('ariaHome')}
                     title={t('ariaHome')}
                 >
-                    <Home className="w-6 h-6 text-zinc-900 dark:text-white group-hover:text-yellow-500 transition-colors" />
+                    <ClipboardClock className="w-6 h-6 text-zinc-900 dark:text-white group-hover:text-yellow-500 transition-colors" />
                 </a>
 
                 {/* Emojis Button */}

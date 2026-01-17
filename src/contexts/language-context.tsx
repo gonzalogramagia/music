@@ -29,9 +29,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
     const translations: Record<Language, Record<string, string>> = {
         es: {
-            ariaHome: "Ir a Home",
+            ariaHome: "Ir a Today",
             ariaEmojis: "Ir a Emojis",
-            ariaMusic: "Ir a Música",
+            ariaMusic: "Ya estás acá!",
             ariaTraining: "Ir a Entrenar",
             tag_Electronic: "Electrónica",
             moreSongsIn: "Más canciones en",
@@ -55,9 +55,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
             toastSongUpdated: "Canción actualizada correctamente",
         },
         en: {
-            ariaHome: "Go to Home",
+            ariaHome: "Go to Today",
             ariaEmojis: "Go to Emojis",
-            ariaMusic: "Go to Music",
+            ariaMusic: "You are here!",
             ariaTraining: "Go to Training",
             tag_Electronic: "Electronic",
             moreSongsIn: "More songs on",

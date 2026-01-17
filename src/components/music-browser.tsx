@@ -213,8 +213,9 @@ export function MusicBrowser() {
                 <img
                     src="/dj.png"
                     alt="DJ"
+                    onClick={() => window.open('https://youtu.be/dQw4w9WgXcQ', '_blank')}
                     /* Ajuste de márgenes negativos y condicionales según idioma */
-                    className={`h-60 md:h-72 w-auto object-contain hover:scale-105 transition-transform duration-500 drop-shadow-2xl -mt-6 -mb-4 md:mt-0 md:mb-0 md:-mr-4 ${language === 'en' ? 'md:ml-0' : 'md:ml-16'}`}
+                    className={`cursor-pointer h-60 md:h-72 w-auto object-contain hover:scale-105 transition-transform duration-500 drop-shadow-2xl -mt-6 -mb-4 md:mt-0 md:mb-0 md:-mr-4 ${language === 'en' ? 'md:ml-0' : 'md:ml-16'}`}
                 />
                 <div className="flex flex-col items-center md:items-start md:gap-0">
                     <h1 className="mx-auto md:mx-0 md:max-w-xl text-3xl md:text-5xl font-extrabold text-center md:text-left text-neutral-900 leading-tight tracking-tight">
