@@ -146,7 +146,7 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-zinc-700 flex items-center gap-2">
                             <LinkIcon size={16} />
-                            {lang === 'en' ? '"More songs on..." URL' : 'URL de "Más canciones en..."'}
+                            {t('playlistUrlLabel')}
                         </label>
                         <div className="flex gap-2">
                             <input
