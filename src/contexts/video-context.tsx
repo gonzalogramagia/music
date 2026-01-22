@@ -102,7 +102,7 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
                     id: 'study-1',
                     name: 'How to start Competitive Programming? For beginners!',
                     url: 'https://youtu.be/xAeiXy8-9Y8',
-                    tags: ['Code'],
+                    tags: ['Programming'],
                     embedUrl: getEmbedUrl('https://youtu.be/xAeiXy8-9Y8')
                 },
                 {
@@ -126,7 +126,16 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
             if (stored) {
                 try {
                     const parsed: Video[] = JSON.parse(stored);
-                    setVideos(parsed);
+                    // Migration: Rename 'Code' tags to 'Programming'
+                    const migrated = parsed.map(v => ({
+                        ...v,
+                        tags: v.tags.map(t => t === 'Code' ? 'Programming' : t)
+                    }));
+                    setVideos(migrated);
+                    // Save back if migrated
+                    if (JSON.stringify(migrated) !== stored) {
+                        localStorage.setItem(key, JSON.stringify(migrated));
+                    }
                     return;
                 } catch (e) {
                     console.error('Failed to parse videos from local storage', e);

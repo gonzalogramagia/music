@@ -21,12 +21,12 @@ export function ModeSwitch() {
     };
 
     return (
-        <div className="flex items-center gap-1 bg-neutral-100 dark:bg-zinc-800 p-1 rounded-full w-fit border border-neutral-200 dark:border-zinc-700 shadow-sm h-[42px]">
+        <div className="flex items-center gap-2 bg-neutral-100 p-1.5 px-3 rounded-full w-fit border border-neutral-200/50 shadow-sm h-[44px]">
             <button
                 onClick={() => handleToggleMode(false)}
                 className={`h-full aspect-square rounded-full text-base transition-all cursor-pointer flex items-center justify-center ${!studyMode
-                        ? "bg-white dark:bg-zinc-700 shadow-sm scale-110"
-                        : "opacity-40 hover:opacity-100 grayscale hover:grayscale-0"
+                    ? "bg-white shadow-sm scale-110"
+                    : "opacity-40 hover:opacity-100 grayscale hover:grayscale-0"
                     }`}
                 title={t('musicInterface') || "Music"}
             >
@@ -35,8 +35,8 @@ export function ModeSwitch() {
             <button
                 onClick={() => handleToggleMode(true)}
                 className={`h-full aspect-square rounded-full text-base transition-all cursor-pointer flex items-center justify-center ${studyMode
-                        ? "bg-white dark:bg-zinc-700 shadow-sm scale-110"
-                        : "opacity-40 hover:opacity-100 grayscale hover:grayscale-0"
+                    ? "bg-white shadow-sm scale-110"
+                    : "opacity-40 hover:opacity-100 grayscale hover:grayscale-0"
                     }`}
                 title={t('studyInterface') || "Study"}
             >
