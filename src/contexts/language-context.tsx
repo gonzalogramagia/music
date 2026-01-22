@@ -4,6 +4,7 @@ import {
   ReactNode,
   useEffect,
   useState,
+  useCallback,
 } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -11,6 +12,7 @@ type Language = "es" | "en";
 
 interface LanguageContextType {
   language: Language;
+  mode: "music" | "study";
   t: (key: string) => string;
   setLanguage: (lang: Language) => void;
 }
@@ -187,14 +189,55 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("config-update", onConfig);
   }, []);
 
-  const t = (key: string) => {
-    const base = translations[language] || {};
-    const overrides = mode === "study" ? studyOverrides[language] || {} : {};
-    return (overrides[key] ?? base[key]) || key;
-  };
+  const t = useCallback(
+    (key: string) => {
+      const base = translations[language] || {};
+      const overrides = mode === "study" ? studyOverrides[language] || {} : {};
+      return (overrides[key] ?? base[key]) || key;
+    },
+    [language, mode]
+  );
+
+  useEffect(() => {
+    const isStudy = mode === "study";
+    const title = isStudy ? "💻 😎 📚" : "♪♫♪♫";
+
+    // Metadata always in English as requested
+    const enBase = translations.en;
+    const enStudy = studyOverrides.en;
+
+    const headline1 = isStudy ? enStudy.headline_part1 : enBase.headline_part1;
+    const headline2 = isStudy ? enStudy.headline_part2 : enBase.headline_part2;
+    const modeSuffix = isStudy ? " | Study Mode 📚" : " | Music Mode 🎵";
+    const description = `${headline1} ${headline2}${modeSuffix}`;
+
+    const image = isStudy ? "/studying.png" : "/dj.png";
+    const fullImageUrl = `https://bien.estate${image}`;
+
+    document.title = title;
+
+    const updateMeta = (
+      selector: string,
+      content: string,
+      attr: string = "content"
+    ) => {
+      const el = document.querySelector(selector);
+      if (el) el.setAttribute(attr, content);
+    };
+
+    updateMeta('meta[property="og:url"]', "https://bien.estate/en");
+    updateMeta('meta[property="twitter:url"]', "https://bien.estate/en");
+    updateMeta('meta[name="description"]', description);
+    updateMeta('meta[property="og:title"]', title);
+    updateMeta('meta[property="og:description"]', description);
+    updateMeta('meta[property="og:image"]', fullImageUrl);
+    updateMeta('meta[property="twitter:title"]', title);
+    updateMeta('meta[property="twitter:description"]', description);
+    updateMeta('meta[property="twitter:image"]', fullImageUrl);
+  }, [mode]); // No longer depends on language or t, as it's always English
 
   return (
-    <LanguageContext.Provider value={{ language, t, setLanguage }}>
+    <LanguageContext.Provider value={{ language, mode, t, setLanguage }}>
       {children}
     </LanguageContext.Provider>
   );

@@ -60,7 +60,8 @@ function SortableVideoItem({ id, children, disabled }: { id: string, children: R
 export function MusicBrowser() {
     const { videos, addVideo, updateVideo, deleteVideo, reorderVideos } = useVideos();
     const { toast } = useToast();
-    const { t, language } = useLanguage();
+    const { t, language, mode } = useLanguage();
+    const studyMode = mode === 'study';
     const [search, setSearch] = useState("");
     const [activeTag, setActiveTag] = useState<string | null>(null);
     const [isFormOpen, setIsFormOpen] = useState(false);
@@ -70,7 +71,6 @@ export function MusicBrowser() {
     const [hiddenTags, setHiddenTags] = useState<string[]>([]);
     const [playlistUrl, setPlaylistUrl] = useState("https://youtube.com/playlist?list=PL-0_mv1k_D3IR4LDICAe3TZH4xqCX9xsr");
     const [isMobile, setIsMobile] = useState(false);
-    const [studyMode, setStudyMode] = useState(false);
 
     useEffect(() => {
         const checkMobile = () => {
@@ -95,40 +95,30 @@ export function MusicBrowser() {
 
     // Load hidden tags and playlist URL scoped by interface mode
     useEffect(() => {
-        const updateConfig = () => {
-            const mode = localStorage.getItem('config-interface-mode') === 'study' ? 'study' : 'music';
-            const savedTags = localStorage.getItem(`config-hidden-tags_${mode}`);
-            const savedUrl = localStorage.getItem(`config-playlist-url_${mode}`);
+        const savedTags = localStorage.getItem(`config-hidden-tags_${mode}`);
+        const savedUrl = localStorage.getItem(`config-playlist-url_${mode}`);
 
-            if (savedTags) {
-                try {
-                    setHiddenTags(JSON.parse(savedTags));
-                } catch (e) {
-                    setHiddenTags([]);
-                }
-            } else {
+        if (savedTags) {
+            try {
+                setHiddenTags(JSON.parse(savedTags));
+            } catch (e) {
                 setHiddenTags([]);
             }
+        } else {
+            setHiddenTags([]);
+        }
 
-            if (savedUrl) {
-                setPlaylistUrl(savedUrl);
+        if (savedUrl) {
+            setPlaylistUrl(savedUrl);
+        } else {
+            // Use per-mode default playlist URL when none is saved
+            if (mode === 'study') {
+                setPlaylistUrl('https://www.youtube.com/@freecodecamp/videos');
             } else {
-                // Use per-mode default playlist URL when none is saved
-                if (mode === 'study') {
-                    setPlaylistUrl('https://www.youtube.com/@freecodecamp/videos');
-                } else {
-                    setPlaylistUrl('https://youtube.com/playlist?list=PL-0_mv1k_D3IR4LDICAe3TZH4xqCX9xsr');
-                }
+                setPlaylistUrl('https://youtube.com/playlist?list=PL-0_mv1k_D3IR4LDICAe3TZH4xqCX9xsr');
             }
-
-            setStudyMode(mode === 'study');
-        };
-        updateConfig();
-        window.addEventListener('config-update', updateConfig);
-        return () => {
-            window.removeEventListener('config-update', updateConfig);
-        };
-    }, []);
+        }
+    }, [mode]);
 
     // Filter tags to exclude hidden ones
     const allTags = useMemo(() => {
