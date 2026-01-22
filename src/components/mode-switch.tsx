@@ -21,7 +21,7 @@ export function ModeSwitch() {
     };
 
     return (
-        <div className="flex items-center gap-2 bg-neutral-100 p-1.5 px-3 rounded-full w-fit border border-neutral-200/50 shadow-sm h-[44px]">
+        <div className="flex items-center gap-4 bg-neutral-100 p-1.5 px-2 rounded-full w-fit border border-neutral-200/50 shadow-sm h-[44px]">
             <button
                 onClick={() => handleToggleMode(false)}
                 className={`h-full aspect-square rounded-full text-base transition-all cursor-pointer flex items-center justify-center ${!studyMode
