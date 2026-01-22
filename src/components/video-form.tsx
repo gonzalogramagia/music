@@ -96,7 +96,7 @@ export function VideoForm({ isOpen, onClose, onSubmit, initialData, initialName 
                                 type="button"
                                 onClick={() => {
                                     if (name) {
-                                        window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(name + ' Music')}`, '_blank');
+                                        window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(name + t('searchSuffix'))}`, '_blank');
                                     }
                                 }}
                                 disabled={!name}
