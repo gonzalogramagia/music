@@ -21,7 +21,18 @@ interface VideoContextType {
 
 const VideoContext = createContext<VideoContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'gonzalogramagia_music_videos';
+const STORAGE_KEY_BASE = 'gonzalogramagia_music_videos';
+
+const getMode = () => {
+    try {
+        const m = localStorage.getItem('config-interface-mode');
+        return m === 'study' ? 'study' : 'music';
+    } catch (e) {
+        return 'music';
+    }
+};
+
+const STORAGE_KEY = () => `${STORAGE_KEY_BASE}_${getMode()}`;
 
 const getEmbedUrl = (url: string): string | undefined => {
     try {
@@ -59,50 +70,84 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
     const [videos, setVideos] = useState<Video[]>([]);
 
     useEffect(() => {
-        const defaultVideos: Video[] = [
-            {
-                id: 'default-song',
-                name: 'Lost Frequencies – Royal Palace Brussels 2020',
-                url: 'https://youtu.be/q-ktd4nEi3w',
-                tags: ['Electronic'],
-                embedUrl: getEmbedUrl('https://youtu.be/q-ktd4nEi3w')
-            },
-            {
-                id: 'default-song-2',
-                name: 'Paulo Londra - 1% (feat. Eladio Carrión) [Official Video]',
-                url: 'https://youtu.be/2yGZPCjtGJ8',
-                tags: ['Rap'],
-                embedUrl: getEmbedUrl('https://youtu.be/2yGZPCjtGJ8')
-            },
-            {
-                id: 'default-song-3',
-                name: 'Zero Distractions - Chillstep Mix for Full Focus',
-                url: 'https://www.youtube.com/watch?v=hbPoX4vjB5o',
-                tags: ['Focus'],
-                embedUrl: getEmbedUrl('https://www.youtube.com/watch?v=hbPoX4vjB5o')
+        const loadVideosForMode = () => {
+            const mode = getMode();
+
+            const defaultMusic: Video[] = [
+                {
+                    id: 'default-song',
+                    name: 'Lost Frequencies – Royal Palace Brussels 2020',
+                    url: 'https://youtu.be/q-ktd4nEi3w',
+                    tags: ['Electronic'],
+                    embedUrl: getEmbedUrl('https://youtu.be/q-ktd4nEi3w')
+                },
+                {
+                    id: 'default-song-2',
+                    name: 'Paulo Londra - 1% (feat. Eladio Carrión) [Official Video]',
+                    url: 'https://youtu.be/2yGZPCjtGJ8',
+                    tags: ['Rap'],
+                    embedUrl: getEmbedUrl('https://youtu.be/2yGZPCjtGJ8')
+                },
+                {
+                    id: 'default-song-3',
+                    name: 'Zero Distractions - Chillstep Mix for Full Focus',
+                    url: 'https://www.youtube.com/watch?v=hbPoX4vjB5o',
+                    tags: ['Focus'],
+                    embedUrl: getEmbedUrl('https://www.youtube.com/watch?v=hbPoX4vjB5o')
+                }
+            ];
+
+            const defaultStudy: Video[] = [
+                {
+                    id: 'study-1',
+                    name: 'How to start Competitive Programming? For beginners!',
+                    url: 'https://youtu.be/xAeiXy8-9Y8',
+                    tags: ['Code'],
+                    embedUrl: getEmbedUrl('https://youtu.be/xAeiXy8-9Y8')
+                },
+                {
+                    id: 'study-2',
+                    name: "the hacker’s roadmap (how to get started in IT in 2025)",
+                    url: 'https://youtu.be/5xWnmUEi1Qw',
+                    tags: ['Cybersecurity'],
+                    embedUrl: getEmbedUrl('https://youtu.be/5xWnmUEi1Qw')
+                },
+                {
+                    id: 'study-3',
+                    name: 'How does Computer Hardware Work? 💻🛠🔬 [3D Animated Teardown]',
+                    url: 'https://youtu.be/d86ws7mQYIg',
+                    tags: ['Hardware'],
+                    embedUrl: getEmbedUrl('https://youtu.be/d86ws7mQYIg')
+                }
+            ];
+
+            const key = STORAGE_KEY();
+            const stored = localStorage.getItem(key);
+            if (stored) {
+                try {
+                    const parsed: Video[] = JSON.parse(stored);
+                    setVideos(parsed);
+                    return;
+                } catch (e) {
+                    console.error('Failed to parse videos from local storage', e);
+                }
             }
-        ];
 
-        const storedVideos = localStorage.getItem(STORAGE_KEY);
-        if (storedVideos) {
-            try {
-                const parsed: Video[] = JSON.parse(storedVideos);
-                setVideos(parsed);
-                return;
-            } catch (e) {
-                console.error('Failed to parse videos from local storage', e);
-            }
-        }
+            const defaults = mode === 'study' ? defaultStudy : defaultMusic;
+            setVideos(defaults);
+            localStorage.setItem(key, JSON.stringify(defaults));
+        };
 
-        // Load default videos if storage is empty
-        setVideos(defaultVideos);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultVideos));
+        loadVideosForMode();
 
+        const onConfigUpdate = () => loadVideosForMode();
+        window.addEventListener('config-update', onConfigUpdate);
+        return () => window.removeEventListener('config-update', onConfigUpdate);
     }, []);
 
     const saveVideos = (newVideos: Video[]) => {
         setVideos(newVideos);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(newVideos));
+        localStorage.setItem(STORAGE_KEY(), JSON.stringify(newVideos));
     };
 
     const addVideo = (videoData: Omit<Video, 'id' | 'embedUrl'>) => {

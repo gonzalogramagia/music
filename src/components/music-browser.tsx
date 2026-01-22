@@ -69,6 +69,7 @@ export function MusicBrowser() {
     const [hiddenTags, setHiddenTags] = useState<string[]>([]);
     const [playlistUrl, setPlaylistUrl] = useState("https://youtube.com/playlist?list=PL-0_mv1k_D3IR4LDICAe3TZH4xqCX9xsr");
     const [isMobile, setIsMobile] = useState(false);
+    const [studyMode, setStudyMode] = useState(false);
 
     useEffect(() => {
         const checkMobile = () => {
@@ -91,11 +92,12 @@ export function MusicBrowser() {
         })
     );
 
-    // Load hidden tags and playlist URL
+    // Load hidden tags and playlist URL scoped by interface mode
     useEffect(() => {
         const updateConfig = () => {
-            const savedTags = localStorage.getItem('config-hidden-tags');
-            const savedUrl = localStorage.getItem('config-playlist-url');
+            const mode = localStorage.getItem('config-interface-mode') === 'study' ? 'study' : 'music';
+            const savedTags = localStorage.getItem(`config-hidden-tags_${mode}`);
+            const savedUrl = localStorage.getItem(`config-playlist-url_${mode}`);
 
             if (savedTags) {
                 try {
@@ -110,10 +112,14 @@ export function MusicBrowser() {
             if (savedUrl) {
                 setPlaylistUrl(savedUrl);
             }
+
+            setStudyMode(mode === 'study');
         };
         updateConfig();
         window.addEventListener('config-update', updateConfig);
-        return () => window.removeEventListener('config-update', updateConfig);
+        return () => {
+            window.removeEventListener('config-update', updateConfig);
+        };
     }, []);
 
     // Filter tags to exclude hidden ones
@@ -211,38 +217,29 @@ export function MusicBrowser() {
         <div className="space-y-4 md:space-y-8">
             <div className="flex flex-col md:flex-row items-center justify-center pt-0 pb-0 md:pt-0 md:pb-0 gap-0 md:gap-1 max-w-4xl mx-auto">
                 <img
-                    src="/dj.png"
-                    alt="DJ"
+                    src={studyMode ? '/studying.png' : '/dj.png'}
+                    alt={studyMode ? 'Studying' : 'DJ'}
                     onClick={() => window.open('https://youtu.be/dQw4w9WgXcQ', '_blank')}
-                    /* Ajuste de márgenes negativos y condicionales según idioma */
-                    className={`cursor-pointer h-60 md:h-72 w-auto object-contain hover:scale-105 transition-transform duration-500 drop-shadow-2xl -mt-6 -mb-4 md:mt-0 md:mb-0 md:-mr-4 ${language === 'en' ? 'md:ml-0' : 'md:ml-16'}`}
+                    /* Ajuste de márgenes negativos y condicionales según idioma. If studyMode, move slightly down and left */
+                    className={`cursor-pointer h-60 md:h-72 w-auto object-contain hover:scale-105 transition-transform duration-500 drop-shadow-2xl -mt-6 -mb-4 md:mt-0 md:mb-0 md:-mr-4 ${studyMode ? 'md:ml-4 md:translate-y-1 md:-translate-x-2' : (language === 'en' ? 'md:ml-0' : 'md:ml-16')}`}
+                    style={studyMode ? { transform: 'translate3d(-0.6rem,0.25rem,0)' } : undefined}
                 />
                 <div className="flex flex-col items-center md:items-start md:gap-0">
                     <h1 className="mx-auto md:mx-0 md:max-w-xl text-3xl md:text-5xl font-extrabold text-center md:text-left text-neutral-900 leading-tight tracking-tight">
-                        {language === 'en' ? (
-                            <>
-                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600">
-                                    Your perfect soundtrack{" "}
-                                </span>
-                                <span className="text-[#6866D6] block">
-                                    in a flash!
-                                </span>
-                            </>
-                        ) : (
-                            <>
-                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600">
-                                    ¡Tu banda sonora{" "}
-                                </span>
-                                <span className="block md:inline">
-                                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600">
-                                        perfecta{" "}
+                                <>
+                                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600 inline">
+                                        {t('headline_part1')}
                                     </span>
-                                    <span className="text-[#6866D6]">
-                                        al instante!
-                                    </span>
-                                </span>
-                            </>
-                        )}
+                                    {language === 'en' ? (
+                                        <span className="text-[#6866D6] block">
+                                            {t('headline_part2')}
+                                        </span>
+                                    ) : (
+                                        <span className="text-[#6866D6] block md:inline">
+                                            {' '}{t('headline_part2')}
+                                        </span>
+                                    )}
+                                </>
                     </h1>
                     {/* Switch de idioma para mobile debajo del título */}
                     <div className="md:hidden flex items-center gap-2 mt-6 mb-0">
