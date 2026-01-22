@@ -5,7 +5,8 @@ import { useLanguage } from "../contexts/language-context";
 import { VideoForm } from "./video-form";
 import VideoPlayerModal from "./VideoPlayerModal";
 import { Search, SearchX, Plus, Pencil, Trash2, Hash, X, Check, Play } from "lucide-react";
-import { LanguageSwitch } from "./language-switch";
+import { ModeSwitch } from "./mode-switch";
+
 import {
     DndContext,
     closestCenter,
@@ -233,27 +234,21 @@ export function MusicBrowser() {
                 />
                 <div className="flex flex-col items-center md:items-start md:gap-0">
                     <h1 className="mx-auto md:mx-0 md:max-w-xl text-3xl md:text-5xl font-extrabold text-center md:text-left text-neutral-900 leading-tight tracking-tight">
-                                <>
-                                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600 inline">
-                                        {t('headline_part1')}
-                                    </span>
-                                    {language === 'en' ? (
-                                        <span className="text-[#6866D6] block">
-                                            {t('headline_part2')}
-                                        </span>
-                                    ) : (
-                                        <span className="text-[#6866D6] block md:inline">
-                                            {' '}{t('headline_part2')}
-                                        </span>
-                                    )}
-                                </>
+                        <>
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-600 inline">
+                                {t('headline_part1')}
+                            </span>
+                            <span className={`text-[#6866D6] block ${(language === 'es' && !studyMode) ? 'md:inline' : ''}`}>
+                                {language === 'es' && !studyMode && ' '}{t('headline_part2')}
+                            </span>
+                        </>
                     </h1>
-                    {/* Switch de idioma para mobile debajo del título */}
+                    {/* Switch de modo para mobile debajo del título */}
                     <div className="md:hidden flex items-center gap-2 mt-6 mb-0">
                         <span className="text-sm text-neutral-600 font-medium">
-                            {language === 'en' ? 'Switch language' : 'Cambiar idioma'}
+                            {language === 'en' ? 'Switch mode' : 'Cambiar modo'}
                         </span>
-                        <LanguageSwitch />
+                        <ModeSwitch />
                     </div>
                 </div>
             </div>
@@ -276,7 +271,7 @@ export function MusicBrowser() {
                         />
                     </div>
                     <div className="hidden md:block">
-                        <LanguageSwitch />
+                        <ModeSwitch />
                     </div>
                 </div>
 
@@ -359,7 +354,7 @@ export function MusicBrowser() {
                                     rel="noopener noreferrer"
                                     className="block mt-12 mb-0 text-center mx-auto max-w-lg !text-[#6866D6] hover:!text-[#5856b3] transition-colors group cursor-pointer"
                                 >
-                                    <p className="text-base group-hover:underline">
+                                    <p className="text-base group-hover:underline dark:text-white">
                                         {t('moreSongsIn')}{" "}
                                         <span className="break-all">
                                             {playlistUrl}

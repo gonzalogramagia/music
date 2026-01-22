@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "../contexts/language-context";
 import { useVideos } from "../contexts/video-context";
 import { useToast } from "../contexts/toast-context";
+import { LanguageSwitch } from "./language-switch";
+
 
 import { normalizeUrl } from "../utils/url-utils";
 
@@ -23,7 +25,7 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
     const { t } = useLanguage();
     const [playlistUrl, setPlaylistUrl] = useState("https://youtube.com/playlist?list=PL-0_mv1k_D3IR4LDICAe3TZH4xqCX9xsr");
     const [hiddenTags, setHiddenTags] = useState<string[]>([]);
-    const [studyMode, setStudyMode] = useState<boolean>(false);
+
 
     // Compute all unique tags from videos
     const allTags = Array.from(new Set(videos.flatMap(v => v.tags))).sort();
@@ -52,7 +54,6 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
                 console.error("Failed to parse hidden tags", e);
             }
         }
-        if (savedMode === 'study') setStudyMode(true);
     }, []);
 
     const handleSavePlaylistUrl = () => {
@@ -76,13 +77,6 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
         window.dispatchEvent(new Event('config-update'));
     };
 
-    const handleToggleMode = (value: boolean) => {
-        setStudyMode(value);
-        localStorage.setItem('config-interface-mode', value ? 'study' : 'music');
-        window.dispatchEvent(new Event('config-update'));
-        toast(lang === 'en' ? 'Changes saved' : 'Cambios guardados', 'success');
-        onClose();
-    };
 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
@@ -103,39 +97,18 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
 
                 <div className="space-y-6">
 
-                    {/* Interface Mode Toggle */}
+                    {/* Language Switch */}
                     <div className="space-y-2">
-                        <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                            {t('interfaceMode')}
-                        </h3>
                         <div className="flex items-center justify-between p-2 bg-zinc-50 dark:bg-zinc-800/50 rounded-lg border border-zinc-100 dark:border-zinc-800">
                             <div className="flex flex-col">
-                                <span className="text-sm font-medium text-zinc-700 dark:text-zinc-200">{t('studyInterface')}</span>
-                                <span className="text-xs text-zinc-500 dark:text-zinc-400">{t('interfaceDesc')}</span>
+                                <span className="text-sm font-medium text-zinc-700 dark:text-zinc-200">
+                                    {lang === 'en' ? 'Interface Language' : 'Idioma de la interfaz'}
+                                </span>
+                                <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                                    {lang === 'en' ? 'Select your preferred language' : 'Selecciona tu idioma preferido'}
+                                </span>
                             </div>
-                            <div>
-                                <div className="flex items-center gap-2 bg-neutral-100 p-1 rounded-full w-fit">
-                                    <button
-                                        onClick={() => handleToggleMode(false)}
-                                        className={`px-3 py-2.5 rounded-full text-xs font-medium transition-all cursor-pointer ${!studyMode
-                                            ? "bg-white shadow-sm text-[#6866D6]"
-                                            : "text-neutral-500 hover:text-neutral-700"
-                                            }`}
-                                    >
-                                        {t('off')}
-                                    </button>
-                                    <button
-                                        onClick={() => handleToggleMode(true)}
-                                        className={`px-3 py-2.5 rounded-full text-xs font-medium transition-all cursor-pointer ${studyMode
-                                            ? "bg-white shadow-sm text-[#6866D6]"
-                                            : "text-neutral-500 hover:text-neutral-700"
-                                            }`}
-                                    >
-                                        {t('on')}
-                                    </button>
-                                </div>
-                                {/* description removed as requested */}
-                            </div>
+                            <LanguageSwitch />
                         </div>
                     </div>
 

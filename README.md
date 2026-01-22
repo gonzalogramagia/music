@@ -37,7 +37,7 @@ This section is for reference — you don't need to be a developer to use the ap
 ## 🕹 Usage
 
 ### 🌐 Switching language
-- Use the ES / EN switch next to the search bar to toggle the interface language.
+- Open the **Configuration** (wrench icon at the bottom right) to toggle between English (EN) and Spanish (ES).
 
 ### ➕ Adding items
 - Click the large "Add" card to create a new entry.
@@ -52,7 +52,7 @@ This section is for reference — you don't need to be a developer to use the ap
 - Click the thumbnail on a card to open an embedded player and watch the video without leaving the app.
 
 ### 🧭 Quick navigation
-- The top area includes quick controls (language, search, add).
+- The top area includes quick controls (Mode switch, search).
 
 ### ⚙️ Configuration & Backup
 - Open the Wrench icon to access settings:
@@ -69,7 +69,7 @@ All changes are stored in your browser — no account required.
 Switch to Study mode for a learning-first experience: a refreshed logo, a study-focused headline, and curated default content that helps you concentrate.
 
 - How to enable
-    - Open Settings (wrench) → "Actualizar Interfaz." Toggle ON to activate Study mode.
+    - Use the mode switch in the header (🎵 for Music, 📚 for Study) to toggle between vibes instantly.
 
 - What changes
     - The app shows a study-oriented logo and headline.
