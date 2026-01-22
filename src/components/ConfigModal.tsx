@@ -38,7 +38,13 @@ export default function ConfigModal({ lang, onClose, exportPath, importPath }: C
         const savedPlaylistUrl = localStorage.getItem(playlistKey);
         const savedHiddenTags = localStorage.getItem(hiddenKey);
 
-        if (savedPlaylistUrl) setPlaylistUrl(savedPlaylistUrl);
+        if (savedPlaylistUrl) {
+            setPlaylistUrl(savedPlaylistUrl);
+        } else if (mode === 'study') {
+            // Default study playlist: freeCodeCamp videos
+            setPlaylistUrl('https://www.youtube.com/@freecodecamp/videos');
+        }
+
         if (savedHiddenTags) {
             try {
                 setHiddenTags(JSON.parse(savedHiddenTags));

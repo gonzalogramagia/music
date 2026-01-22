@@ -111,6 +111,13 @@ export function MusicBrowser() {
 
             if (savedUrl) {
                 setPlaylistUrl(savedUrl);
+            } else {
+                // Use per-mode default playlist URL when none is saved
+                if (mode === 'study') {
+                    setPlaylistUrl('https://www.youtube.com/@freecodecamp/videos');
+                } else {
+                    setPlaylistUrl('https://youtube.com/playlist?list=PL-0_mv1k_D3IR4LDICAe3TZH4xqCX9xsr');
+                }
             }
 
             setStudyMode(mode === 'study');

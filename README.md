@@ -29,40 +29,59 @@
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Routing**: [React Router](https://reactrouter.com/)
+
+This section is for reference — you don't need to be a developer to use the app.
 
 ---
 
 ## 🕹 Usage
 
-### 🌐 Switching Language
-- Use the **ES / EN** switch next to the search bar to toggle between Spanish and English.
-- The URL automatically updates (e.g., `/en`) to reflect the current language.
+### 🌐 Switching language
+- Use the ES / EN switch next to the search bar to toggle the interface language.
 
-### ➕ Adding Songs
-- Click the big "Add Song" card.
-- Paste a YouTube URL (the title is fetched automatically!).
-- Add tags to organize your music.
+### ➕ Adding items
+- Click the large "Add" card to create a new entry.
+- Paste a YouTube URL — the app will fetch the title automatically when possible.
+- Add one or more tags to organize your library (e.g. Code, Hardware, Focus).
 
-### 🔎 Finding Music
-- **Search Bar**: Type any part of the name.
-- **Tags**: Click on a tag to filter your library instantly.
+### 🔎 Finding content
+- Use the search bar to find items by name.
+- Click a tag in the tag cloud to filter the list to that category.
 
-### 🎧 Listening
-- **Play**: Click the card thumbnail to open the video in an embedded player.
+### ▶️ Listening / Watching
+- Click the thumbnail on a card to open an embedded player and watch the video without leaving the app.
 
-### 🧭 Quick Access
-- **Today** (📅): Navigate to your personal dashboard
-- **Emojis** (😎): Access the emoji picker app
-- **Music** (🎵): You are here!
-- **Play** (🎮): Take a break and play.
-- **Config/GitHub** (🔧/📂): Toggle between settings and GitHub repository
+### 🧭 Quick navigation
+- The top area includes quick controls (language, search, add).
 
-### 🛠️ Configuration & 📦 Backup
-- Click the **Wrench** icon in the bottom-right corner.
-- **Customize**: Set your preferred YouTube playlist URL.
-- **Tags**: Toggle visibility of specific tags to personalize your view.
-- **Data**: Access Import and Export features easily.
+### ⚙️ Configuration & Backup
+- Open the Wrench icon to access settings:
+    - Set a default playlist/link for the footer.
+    - Hide tags you don't want to see.
+    - Import and export collections as JSON. Exported files are prefixed with the current mode (e.g. `music-...` or `study-...`).
+
+All changes are stored in your browser — no account required.
+
+---
+
+## 🧑‍🏫 Study interface (new)
+
+Switch to Study mode for a learning-first experience: a refreshed logo, a study-focused headline, and curated default content that helps you concentrate.
+
+- How to enable
+    - Open Settings (wrench) → "Actualizar Interfaz." Toggle ON to activate Study mode.
+
+- What changes
+    - The app shows a study-oriented logo and headline.
+    - A separate default collection of study videos is loaded (examples: Competitive Programming, Cybersecurity, Hardware tutorials).
+    - Study tags include: Code, Cybersecurity, Hardware.
+
+- Per-mode behavior
+    - Settings like the footer playlist URL and hidden-tags are stored per mode, so music and study configurations remain separate.
+    - Exported backups include the active mode in the filename (`music-...` or `study-...`).
+
+Enjoy switching between vibes — music when you want to relax, study when you want to focus.
+
 
 ---
 
