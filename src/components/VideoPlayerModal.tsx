@@ -11,23 +11,16 @@ interface VideoPlayerModalProps {
 export default function VideoPlayerModal({ video, onClose }: VideoPlayerModalProps) {
     if (!video.embedUrl) return null;
 
-    // Close on Escape key and warn on tab close
+    // Close on Escape key
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
         };
 
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            e.preventDefault();
-            e.returnValue = ''; // Standard way to show confirmation dialog
-        };
-
         window.addEventListener('keydown', handleEsc);
-        window.addEventListener('beforeunload', handleBeforeUnload);
 
         return () => {
             window.removeEventListener('keydown', handleEsc);
-            window.removeEventListener('beforeunload', handleBeforeUnload);
         };
     }, [onClose]);
 
