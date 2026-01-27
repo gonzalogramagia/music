@@ -94,6 +94,13 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
                     url: 'https://www.youtube.com/watch?v=hbPoX4vjB5o',
                     tags: ['Focus'],
                     embedUrl: getEmbedUrl('https://www.youtube.com/watch?v=hbPoX4vjB5o')
+                },
+                {
+                    id: 'default-song-4',
+                    name: 'Diplo - Live in Antarctica 2023 (Full Set)',
+                    url: 'https://www.youtube.com/watch?v=QtKGMfeyPUE',
+                    tags: ['Electronic', 'Focus'],
+                    embedUrl: getEmbedUrl('https://www.youtube.com/watch?v=QtKGMfeyPUE')
                 }
             ];
 
@@ -126,17 +133,21 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
             if (stored) {
                 try {
                     const parsed: Video[] = JSON.parse(stored);
-                    // Migration: Rename 'Code' tags to 'Programming'
-                    const migrated = parsed.map(v => ({
-                        ...v,
-                        tags: v.tags.map(t => t === 'Code' ? 'Programming' : t)
-                    }));
-                    setVideos(migrated);
-                    // Save back if migrated
-                    if (JSON.stringify(migrated) !== stored) {
-                        localStorage.setItem(key, JSON.stringify(migrated));
+
+                    if (parsed.length > 0) {
+                        // Migration: Rename 'Code' tags to 'Programming'
+                        const migrated = parsed.map(v => ({
+                            ...v,
+                            tags: v.tags.map(t => t === 'Code' ? 'Programming' : t)
+                        }));
+
+                        setVideos(migrated);
+                        // Save back if migrated
+                        if (JSON.stringify(migrated) !== stored) {
+                            localStorage.setItem(key, JSON.stringify(migrated));
+                        }
+                        return;
                     }
-                    return;
                 } catch (e) {
                     console.error('Failed to parse videos from local storage', e);
                 }
